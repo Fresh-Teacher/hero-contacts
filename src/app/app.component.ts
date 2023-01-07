@@ -1,6 +1,7 @@
 import { TitleService } from './services/title/title.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ThemeService } from './services/theme/theme.service';
 
 @Component({
     selector: 'app-root',
