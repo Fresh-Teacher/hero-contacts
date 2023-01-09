@@ -3,14 +3,13 @@ import { ThemeService } from 'src/app/services/theme/theme.service';
 import { TStoFix } from 'src/app/types/common-types';
 
 @Component({
-    selector: 'application-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
+    selector: 'theme-toggler',
+    templateUrl: './theme-toggler.component.html',
 })
-export class HeaderComponent {
+export class ThemeToggler {
     constructor(private _theme: ThemeService) {}
     toggleTheme(event: TStoFix) {
-        if (!event.target.checked) {
+        if (event.target.checked) {
             this._theme.setTheme('light');
         } else {
             this._theme.setTheme('dark');

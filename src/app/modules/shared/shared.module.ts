@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HeaderComponent } from './components/header/header.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ThemeToggler } from './components/theme-toggler/theme-toggler.component';
 
 @NgModule({
-    declarations: [SpinnerComponent, HeaderComponent],
+    declarations: [SpinnerComponent, ThemeToggler],
     imports: [CommonModule],
-    exports: [SpinnerComponent, HeaderComponent],
+    exports: [SpinnerComponent, ThemeToggler],
     providers: [],
 })
 export class SharedModule {}

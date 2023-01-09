@@ -32,6 +32,7 @@ export class DashboardScreen {
                 this.isMultiSelected = false;
             }
         });
+        console.log(navigator.platform);
     }
 
     onCheck({ id, isChecked }: { id: number; isChecked: boolean }): void {
