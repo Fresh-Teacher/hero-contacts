@@ -15,6 +15,6 @@ export class TitleService {
     }
 
     setTitle(newTitle: string) {
-        this._doc.title = `My Contacts | ${newTitle}`;
+        this._doc.title = `${newTitle} | My Contacts`;
     }
 }

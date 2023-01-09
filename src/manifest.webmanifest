@@ -1,7 +1,7 @@
 {
     "name": "My Contacts",
     "description": "My Contacts is a fast reliable application for storing your favourite contacts",
-    "short_name": "m-contacts",
+    "short_name": "My contacts",
     "theme_color": "#1976d2",
     "background_color": "#fafafa",
     "display": "standalone",
