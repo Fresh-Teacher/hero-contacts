@@ -1,3 +1,11 @@
 <article class="p-4">
-    <grid-wrapper></grid-wrapper>
+    <section class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <ng-container *ngFor="let item of list">
+            <contact-card
+                @fade
+                (onCheck)="onCheck($event)"
+                [ids]="item.id"
+            ></contact-card>
+        </ng-container>
+    </section>
 </article>
