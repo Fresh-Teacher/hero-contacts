@@ -1,6 +1,6 @@
+import { CommonService } from 'src/app/services/common/common.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component } from '@angular/core';
-import { TitleService } from 'src/app/services/title/title.service';
 import { LayoutService } from '../services/layout.service';
 
 @Component({
@@ -23,8 +23,11 @@ export class DashboardScreen {
         isChecked: false,
     }));
     isMultiSelected!: boolean;
-    constructor(private _title: TitleService, private _layout: LayoutService) {
-        this._title.setTitle('Dashboard');
+    constructor(
+        private _common: CommonService,
+        private _layout: LayoutService
+    ) {
+        this._common.setTitle('Dashboard');
         this._layout.numberOfCardSelected.subscribe((count) => {
             if (count) {
                 this.isMultiSelected = true;

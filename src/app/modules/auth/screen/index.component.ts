@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TitleService } from 'src/app/services/title/title.service';
+import { CommonService } from 'src/app/services/common/common.service';
 
 @Component({
     selector: 'index',
@@ -8,8 +8,8 @@ import { TitleService } from 'src/app/services/title/title.service';
     styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent implements OnInit {
-    constructor(private _router: Router, private _title: TitleService) {
-        this._title.setTitle('Auth');
+    constructor(private _router: Router, private _common: CommonService) {
+        this._common.setTitle('Auth');
     }
 
     ngOnInit(): void {}

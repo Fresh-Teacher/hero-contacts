@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThemeService } from 'src/app/services/theme/theme.service';
+import { CommonService } from 'src/app/services/common/common.service';
 import { TStoFix } from 'src/app/types/common-types';
 
 @Component({
@@ -7,12 +7,12 @@ import { TStoFix } from 'src/app/types/common-types';
     templateUrl: './theme-toggler.component.html',
 })
 export class ThemeToggler {
-    constructor(private _theme: ThemeService) {}
+    constructor(private _common: CommonService) {}
     toggleTheme(event: TStoFix) {
-        if (event.target.checked) {
-            this._theme.setTheme('light');
+        if (!event.target.checked) {
+            this._common.setTheme('light');
         } else {
-            this._theme.setTheme('dark');
+            this._common.setTheme('dark');
         }
     }
 }

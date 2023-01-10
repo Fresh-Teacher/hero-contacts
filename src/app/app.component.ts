@@ -1,6 +1,5 @@
-import { TitleService } from './services/title/title.service';
 import { Component } from '@angular/core';
-import { ThemeService } from './services/theme/theme.service';
+import { CommonService } from './services/common/common.service';
 
 @Component({
     selector: 'app-root',
@@ -9,9 +8,9 @@ import { ThemeService } from './services/theme/theme.service';
 })
 export class AppComponent {
     isTablet = false;
-    constructor(private _title: TitleService, private _theme: ThemeService) {
-        this._title.setTitle('Home');
-        this._theme.getBrowserWidth().subscribe((width) => {
+    constructor(private _common: CommonService) {
+        this._common.setTitle('Home');
+        this._common.getBrowserWidth().subscribe((width) => {
             console.log(width);
             if (width <= 1024) {
                 this.isTablet = true;
