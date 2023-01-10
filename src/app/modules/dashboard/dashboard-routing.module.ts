@@ -5,8 +5,23 @@ import { DashboardScreen } from './screen/index.screen';
 const routes: Routes = [
     {
         path: '',
-        pathMatch: 'full',
         component: DashboardScreen,
+        children: [
+            {
+                path: 'contacts',
+                loadChildren: () =>
+                    import('./modules/contacts/contacts.module').then(
+                        (m) => m.ContactsModule
+                    ),
+            },
+            {
+                path: 'profile',
+                loadChildren: () =>
+                    import('./modules/profile/profile.module').then(
+                        (m) => m.ProfileModule
+                    ),
+            },
+        ],
     },
 ];
 

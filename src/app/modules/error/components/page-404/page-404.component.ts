@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class PageNotFoundComponent {
     constructor(private _router: Router, private _location: Location) {}
     goHome(): void {
-        this._router.navigate(['dashboard']);
+        this._router.navigate(['']);
     }
     goBack(): void {
         this._location.back();

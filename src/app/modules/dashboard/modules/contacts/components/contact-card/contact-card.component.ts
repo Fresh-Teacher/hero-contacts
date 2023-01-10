@@ -6,8 +6,8 @@ import {
     OnDestroy,
     Output,
 } from '@angular/core';
+import { LayoutService } from 'src/app/modules/dashboard/services/layout.service';
 import { TStoFix } from 'src/app/types/common-types';
-import { LayoutService } from '../../services/layout.service';
 
 @Component({
     selector: 'contact-card',
