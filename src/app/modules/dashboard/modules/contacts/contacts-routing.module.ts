@@ -10,7 +10,7 @@ const routes: Routes = [
         component: ContactsIndexScreen,
     },
     {
-        path: ':id',
+        path: 'view',
         component: DetailedContactScreen,
     },
 ];

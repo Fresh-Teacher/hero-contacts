@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardScreen } from './screen/index.screen';
 import { LayoutService } from './services/layout.service';
+import { ProfileModule } from './modules/profile/profile.module';
 
 @NgModule({
     declarations: [DashboardScreen],
@@ -13,6 +14,7 @@ import { LayoutService } from './services/layout.service';
         CommonModule,
         SharedModule,
         ContactsModule,
+        ProfileModule,
     ],
     exports: [],
     providers: [LayoutService],

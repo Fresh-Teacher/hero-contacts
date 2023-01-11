@@ -21,6 +21,7 @@ import { TStoFix } from 'src/app/types/common-types';
             transition('* => void', [animate(500, style({ opacity: 0 }))]),
         ]),
     ],
+    styleUrls: ['./contact-card.component.scss'],
 })
 export class ContactCardComponent {
     @Output() onCheck = new EventEmitter<{ id: number; isChecked: boolean }>();

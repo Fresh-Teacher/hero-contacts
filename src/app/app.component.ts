@@ -9,12 +9,6 @@ import { CommonService } from './services/common/common.service';
 export class AppComponent {
     isTablet = false;
     constructor(private _common: CommonService) {
-        this._common.getBrowserWidth().subscribe((width) => {
-            if (width <= 1024) {
-                this.isTablet = true;
-            } else {
-                this.isTablet = false;
-            }
-        });
+        this._common.setTheme('light');
     }
 }

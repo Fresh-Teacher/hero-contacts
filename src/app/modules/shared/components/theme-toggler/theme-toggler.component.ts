@@ -12,7 +12,7 @@ export class ThemeToggler {
         if (!event.target.checked) {
             this._common.setTheme('light');
         } else {
-            this._common.setTheme('dark');
+            this._common.setTheme('night');
         }
     }
 }

@@ -1,0 +1,8 @@
+.main-container {
+    @apply card card-side bg-base-100 hover:bg-base-200 opacity-90 shadow-xl hover:scale-105 transition-all cursor-pointer;
+    &:hover {
+        figure > img {
+            filter: brightness(100%);
+        }
+    }
+}
