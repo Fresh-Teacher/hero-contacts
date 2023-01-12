@@ -1,7 +1,8 @@
 import { LayoutService } from 'src/app/modules/dashboard/services/layout.service';
-import { CommonService } from 'src/app/services/common/common.service';
+import { CommonService } from 'src/app/services/common.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component } from '@angular/core';
+import { ToastService } from 'src/app/services/toaster.service';
 
 @Component({
     selector: 'contacts-screen',
@@ -24,9 +25,11 @@ export class ContactsIndexScreen {
     isMultiSelected!: boolean;
     constructor(
         private _common: CommonService,
-        private _layout: LayoutService
+        private _layout: LayoutService,
+        private _toastr: ToastService
     ) {
         this._common.setTitle('Dashboard');
+        this._toastr.warning('Index Contacts Open');
         this._layout.numberOfCardSelected.subscribe((count) => {
             if (count) {
                 this.isMultiSelected = true;

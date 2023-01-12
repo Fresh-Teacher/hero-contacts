@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from 'src/app/services/common/common.service';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
     selector: 'dashboard-screeen',
@@ -23,6 +23,6 @@ export class DashboardScreen {
                 this.isTablet = false;
             }
         });
-        this._common.setTheme("light")
+        this._common.setTheme('light');
     }
 }

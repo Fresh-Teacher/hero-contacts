@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonService } from 'src/app/services/common/common.service';
+import { CommonService } from 'src/app/services/common.service';
 import { TStoFix } from 'src/app/types/common-types';
 
 @Component({

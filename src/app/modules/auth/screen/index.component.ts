@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonService } from 'src/app/services/common/common.service';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
     selector: 'index',
