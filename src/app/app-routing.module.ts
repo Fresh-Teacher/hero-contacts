@@ -8,7 +8,7 @@ import {
 } from '@angular/fire/auth-guard';
 import { AuthService } from './modules/auth/services/auth.service';
 
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['auth']);
 const redirectLoggedInToDashboard = () => redirectLoggedInTo(['dashboard']);
 
 const routes: Routes = [
