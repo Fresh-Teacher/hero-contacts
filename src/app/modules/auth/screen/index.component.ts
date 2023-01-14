@@ -56,7 +56,6 @@ export class IndexComponent implements OnInit {
     }
 
     async submitForm(): Promise<void> {
-        console.log(this.authForm.value);
         const { email, password } = this.authForm.value;
         this._auth.signUp(email, password);
         this.authForm.reset();

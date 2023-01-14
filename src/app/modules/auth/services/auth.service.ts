@@ -1,4 +1,6 @@
+import { errorGenerator } from './../utils/auth.util';
 import { Injectable } from '@angular/core';
+import { FirebaseError } from '@angular/fire/app';
 import {
     Auth,
     signInWithPopup,
@@ -25,7 +27,13 @@ export class AuthService {
         private _toastr: ToastService,
         private _router: Router,
         private _provider: GoogleAuthProvider
-    ) {}
+    ) {
+        this._auth.onAuthStateChanged((user) => {
+            if (user) {
+                this.user.next(user);
+            }
+        });
+    }
 
     async signUp(email: string, password: string): Promise<void> {
         try {
@@ -34,27 +42,26 @@ export class AuthService {
                 email,
                 password
             );
-            console.log(userCreds);
             this.user.next(userCreds.user);
             this._router.navigate(['dashboard/contacts']);
             this._toastr.success('Successfully SignedUp!');
         } catch (err) {
-            console.error(err);
-            this._toastr.error('SigningUp Failed!');
+            if (err instanceof FirebaseError) {
+                console.error('Firebase Error', err);
+                const errorMessage = errorGenerator(err.message);
+                this._toastr.error(errorMessage);
+            }
         }
     }
 
     async signInWithGoogle(): Promise<void> {
         try {
             const userCreds = await signInWithPopup(this._auth, this._provider);
-            console.log(userCreds);
             this.user.next({ ...this.user.value, ...userCreds.user });
-            console.log(this.user.value);
             this._router.navigate(['dashboard']);
-            this._toastr.success('Logged In!');
+            this._toastr.success(`Logged In as ${this.user.value.displayName}`);
         } catch (err) {
             console.error(err);
-            this._toastr.error(err.message);
         }
     }
 
