@@ -1,4 +1,3 @@
-import { trigger, transition, style, animate } from '@angular/animations';
 import {
     Component,
     EventEmitter,
@@ -7,20 +6,13 @@ import {
     Output,
 } from '@angular/core';
 import { LayoutService } from 'src/app/modules/dashboard/services/layout.service';
+import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 import { TStoFix } from 'src/app/types/common-types';
 
 @Component({
     selector: 'contact-card',
     templateUrl: './contact-card.component.html',
-    animations: [
-        trigger('fade', [
-            transition('void => *', [
-                style({ opacity: 0 }),
-                animate(500, style({ opacity: 1 })),
-            ]),
-            transition('* => void', [animate(500, style({ opacity: 0 }))]),
-        ]),
-    ],
+    animations: [fadeInOut],
     styleUrls: ['./contact-card.component.scss'],
 })
 export class ContactCardComponent {

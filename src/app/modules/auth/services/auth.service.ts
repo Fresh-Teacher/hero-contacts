@@ -13,15 +13,11 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ToastService } from 'src/app/services/toaster.service';
 
-type LoggedInUser = User | null;
-
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-    user: BehaviorSubject<LoggedInUser> = new BehaviorSubject<LoggedInUser>(
-        null
-    );
+    user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
     constructor(
         private _auth: Auth,
         private _toastr: ToastService,

@@ -1,21 +1,13 @@
 import { LayoutService } from 'src/app/modules/dashboard/services/layout.service';
 import { CommonService } from 'src/app/services/common.service';
-import { trigger, transition, style, animate } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ToastService } from 'src/app/services/toaster.service';
+import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 
 @Component({
     selector: 'contacts-screen',
     templateUrl: './index.screen.html',
-    animations: [
-        trigger('fade', [
-            transition('void => *', [
-                style({ opacity: 0 }),
-                animate(500, style({ opacity: 1 })),
-            ]),
-            transition('* => void', [animate(500, style({ opacity: 0 }))]),
-        ]),
-    ],
+    animations: [fadeInOut],
 })
 export class ContactsIndexScreen {
     list = Array.from({ length: 5 }, (e, id) => ({

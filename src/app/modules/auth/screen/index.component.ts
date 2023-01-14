@@ -1,29 +1,20 @@
-import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import {
     AbstractControl,
     FormBuilder,
     FormControl,
-    FormGroup,
     Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
+import { fadeInOut } from '../../shared/animations/shared.animations';
 import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'index',
     templateUrl: './index.component.html',
     styleUrls: ['./index.component.scss'],
-    animations: [
-        trigger('fade', [
-            transition('void => *', [
-                style({ opacity: 0 }),
-                animate(500, style({ opacity: 1 })),
-            ]),
-            transition('* => void', [animate(500, style({ opacity: 0 }))]),
-        ]),
-    ],
+    animations: [fadeInOut],
     providers: [AuthService],
 })
 export class IndexComponent implements OnInit {
