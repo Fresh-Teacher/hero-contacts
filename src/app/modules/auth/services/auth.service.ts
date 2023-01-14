@@ -1,4 +1,4 @@
-import { errorGenerator } from './../utils/auth.util';
+import { errorGenerator, randomAvatarUrlGenerator } from './../utils/auth.util';
 import { Injectable } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
 import {
@@ -8,6 +8,7 @@ import {
     User,
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
+    updateProfile,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -31,16 +32,24 @@ export class AuthService {
         });
     }
 
-    async signUp(email: string, password: string): Promise<void> {
+    async signUp(
+        fullname: string,
+        email: string,
+        password: string
+    ): Promise<void> {
         try {
             const userCreds = await createUserWithEmailAndPassword(
                 this._auth,
                 email,
                 password
             );
+            await updateProfile(userCreds.user, {
+                displayName: fullname,
+                photoURL: randomAvatarUrlGenerator(),
+            });
             this.user.next(userCreds.user);
             this._router.navigate(['dashboard/contacts']);
-            this._toastr.success('Successfully SignedUp!');
+            this._toastr.success(`Logged In as ${this.user.value.displayName}`);
         } catch (err) {
             if (err instanceof FirebaseError) {
                 console.error('Firebase Error', err);

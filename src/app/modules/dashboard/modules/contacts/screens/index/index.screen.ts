@@ -20,8 +20,7 @@ export class ContactsIndexScreen {
         private _layout: LayoutService,
         private _toastr: ToastService
     ) {
-        this._common.setTitle('Dashboard');
-        this._toastr.warning('Index Contacts Open');
+        this._common.setTitle('Contacts - Dashboard');
         this._layout.numberOfCardSelected.subscribe((count) => {
             if (count) {
                 this.isMultiSelected = true;

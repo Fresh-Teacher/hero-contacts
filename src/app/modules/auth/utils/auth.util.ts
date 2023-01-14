@@ -7,3 +7,11 @@ export const errorGenerator = (message: string): string => {
             return message;
     }
 };
+
+const randomNumberGenerator = () => {
+    return Math.floor(Math.random() * 100000 + 1);
+};
+
+export const randomAvatarUrlGenerator = () => {
+    return `https://avatars.dicebear.com/api/big-ears-neutral/${randomNumberGenerator()}.svg`;
+};

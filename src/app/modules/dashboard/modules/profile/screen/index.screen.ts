@@ -10,7 +10,5 @@ export class IndexProfileScreen {
     constructor(
         private _toastr: ToastService,
         private _network: NetworkManagerService
-    ) {
-        this._toastr.success('Profile Screen Opened');
-    }
+    ) {}
 }

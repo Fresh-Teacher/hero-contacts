@@ -18,6 +18,7 @@ export class DashboardScreen implements AfterViewInit {
         private _common: CommonService,
         private _auth: AuthService
     ) {
+        this._common.setTitle('Dashboard');
         this._auth.user.subscribe((user) => {
             this.loggedInUser = user;
             console.log(this.loggedInUser);

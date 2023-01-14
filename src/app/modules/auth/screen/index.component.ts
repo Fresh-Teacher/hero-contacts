@@ -19,6 +19,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class IndexComponent implements OnInit {
     authForm = this._fb.group({
+        name: new FormControl('', [
+            Validators.required,
+            Validators.maxLength(15),
+        ]),
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [
             Validators.required,
@@ -42,13 +46,16 @@ export class IndexComponent implements OnInit {
         return this.authForm.get('password');
     }
 
+    get name(): AbstractControl {
+        return this.authForm.get('name');
+    }
     async signInWithGoogle(): Promise<void> {
         await this._auth.signInWithGoogle();
     }
 
     async submitForm(): Promise<void> {
-        const { email, password } = this.authForm.value;
-        this._auth.signUp(email, password);
+        const { email, password, name } = this.authForm.value;
+        this._auth.signUp(name, email, password);
         this.authForm.reset();
     }
 
