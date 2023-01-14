@@ -25,6 +25,7 @@ import { AuthService } from './modules/auth/services/auth.service';
         BrowserAnimationsModule,
         SharedModule,
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+        provideAuth(() => getAuth()),
         provideFirestore(() => getFirestore()),
         provideDatabase(() => getDatabase()),
         ServiceWorkerModule.register('ngsw-worker.js', {
