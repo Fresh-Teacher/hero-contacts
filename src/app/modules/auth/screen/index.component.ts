@@ -51,6 +51,10 @@ export class IndexComponent implements OnInit {
         return this.authForm.get('password');
     }
 
+    async signInWithGoogle(): Promise<void> {
+        await this._auth.signInWithGoogle();
+    }
+
     async submitForm(): Promise<void> {
         console.log(this.authForm.value);
         const { email, password } = this.authForm.value;

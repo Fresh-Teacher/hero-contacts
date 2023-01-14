@@ -13,7 +13,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
-import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideAuth, getAuth, GoogleAuthProvider } from '@angular/fire/auth';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AuthService } from './modules/auth/services/auth.service';
 
@@ -46,6 +46,7 @@ import { AuthService } from './modules/auth/services/auth.service';
     providers: [
         NetworkManagerService,
         AuthService,
+        GoogleAuthProvider,
         { provide: HTTP_INTERCEPTORS, useClass: LogInterceptor, multi: true },
         { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
     ],
