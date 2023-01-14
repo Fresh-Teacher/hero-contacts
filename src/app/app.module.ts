@@ -1,15 +1,21 @@
+import { environment } from './../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 import { LogInterceptor } from './modules/shared/interceptors/request.interceptor';
 import { NetworkManagerService } from './services/network-manager.service';
 import { SharedModule } from './modules/shared/shared.module';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { AuthService } from './modules/auth/services/auth.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -18,7 +24,9 @@ import { SharedModule } from './modules/shared/shared.module';
         AppRoutingModule,
         BrowserAnimationsModule,
         SharedModule,
-        StoreModule.forRoot(),
+        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+        provideFirestore(() => getFirestore()),
+        provideDatabase(() => getDatabase()),
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: true,
             // Register the ServiceWorker as soon as the application is stable
@@ -36,7 +44,9 @@ import { SharedModule } from './modules/shared/shared.module';
     ],
     providers: [
         NetworkManagerService,
+        AuthService,
         { provide: HTTP_INTERCEPTORS, useClass: LogInterceptor, multi: true },
+        { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
     ],
     bootstrap: [AppComponent],
 })

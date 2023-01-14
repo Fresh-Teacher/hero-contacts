@@ -1,14 +1,4 @@
-import { User } from 'firebase/auth';
-
-export interface IAuthContext {
-    user: User | null;
-    isLoading: boolean;
-    message: string;
-    isError: boolean;
-    signup: (email: string, password: string, displayName: string) => void;
-    login: (email: string, password: string) => void;
-    signout: () => void;
-}
+import { User } from '@angular/fire/auth';
 
 export interface IUserState {
     user: User | null;
