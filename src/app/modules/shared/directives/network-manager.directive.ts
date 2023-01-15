@@ -14,19 +14,24 @@ export class NewtworkManagerDirective {
 
     @HostListener('window:offline')
     disableButton(): void {
-        if (this._elRef.nativeElement instanceof HTMLButtonElement) {
+        if (
+            this._elRef.nativeElement instanceof HTMLButtonElement &&
+            !this._elRef.nativeElement.type.includes('submit')
+        ) {
             this._elRef.nativeElement.disabled = true;
             this._elRef.nativeElement.classList.add('btn-disabled');
         } else {
-            this._elRef.nativeElement.classList.add('network_disabled');
+            this._elRef.nativeElement.classList.add('btn-disabled');
         }
     }
 
     @HostListener('window:online')
     enabledButton(): void {
-        this._elRef.nativeElement.classList.remove('network_disabled');
         this._elRef.nativeElement.classList.remove('btn-disabled');
-        if (this._elRef.nativeElement instanceof HTMLButtonElement) {
+        if (
+            this._elRef.nativeElement instanceof HTMLButtonElement &&
+            !this._elRef.nativeElement.type.includes('submit')
+        ) {
             this._elRef.nativeElement.disabled = false;
         }
     }

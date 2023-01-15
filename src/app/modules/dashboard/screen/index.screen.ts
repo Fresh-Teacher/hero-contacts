@@ -3,6 +3,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../../auth/services/auth.service';
+import { COMMONENUM, Theme } from 'src/app/types/common-types';
 
 @Component({
     selector: 'dashboard-screeen',
@@ -30,7 +31,10 @@ export class DashboardScreen implements AfterViewInit {
                 this.isTablet = false;
             }
         });
-        this._common.setTheme('light');
+        const theme = localStorage.getItem(COMMONENUM.THEME) as Theme;
+        if (theme) {
+            this._common.setTheme(theme);
+        }
     }
     async logout(): Promise<void> {
         await this._auth.signOut();

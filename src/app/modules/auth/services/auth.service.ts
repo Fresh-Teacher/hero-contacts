@@ -11,8 +11,17 @@ import {
     updateProfile,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import {
+    BehaviorSubject,
+    catchError,
+    from,
+    map,
+    retry,
+    tap,
+    throwError,
+} from 'rxjs';
 import { ToastService } from 'src/app/services/toaster.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -59,15 +68,13 @@ export class AuthService {
         }
     }
 
-    async signInWithGoogle(): Promise<void> {
-        try {
-            const userCreds = await signInWithPopup(this._auth, this._provider);
-            this.user.next({ ...this.user.value, ...userCreds.user });
-            this._router.navigate(['dashboard']);
-            this._toastr.success(`Logged In as ${this.user.value.displayName}`);
-        } catch (err) {
-            console.error(err);
-        }
+    signInWithGoogle(): Observable<User> {
+        return from(signInWithPopup(this._auth, this._provider)).pipe(
+            map(({ user }) => user),
+            tap((data) => this.user.next(data)),
+            retry(2),
+            catchError((err: FirebaseError) => throwError(err))
+        );
     }
 
     async signOut(): Promise<void> {

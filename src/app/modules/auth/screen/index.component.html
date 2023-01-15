@@ -104,7 +104,9 @@
             </section>
             <button
                 [disabled]="!authForm.valid"
+                [ngClass]="{ loading: isLoading }"
                 type="submit"
+                networkDisabled
                 class="btn btn-sm md:btn-md btn-block mt-2"
             >
                 SignUp
@@ -113,6 +115,7 @@
         <button
             type="button"
             networkDisabled
+            [disabled]="isLoading"
             (click)="signInWithGoogle()"
             data-tip="Login With Google"
             class="w-full btn btn-sm md:btn-md mt-4 tooltip tooltip-top flex justify-center items-center"
