@@ -19,6 +19,7 @@ import { AuthService } from '../services/auth.service';
     providers: [AuthService],
 })
 export class IndexComponent implements OnInit {
+    isSignUp = true;
     authForm = this._fb.group({
         name: new FormControl('', [
             Validators.required,
@@ -40,7 +41,6 @@ export class IndexComponent implements OnInit {
         private _toastr: ToastService
     ) {
         this._common.setTitle('Auth');
-        console.log(this.authForm.valid);
     }
 
     get email(): AbstractControl {
@@ -71,15 +71,57 @@ export class IndexComponent implements OnInit {
     }
 
     async submitForm(): Promise<void> {
+        const { email, password, name } = this.authForm.value;
+        console.log(this.authForm.value);
+        if (this.isSignUp) {
+            this.signUp(name, email, password);
+        } else {
+            this.signIn(email, password);
+        }
+    }
+
+    async signIn(email: string, password: string): Promise<void> {
+        this.isLoading = true;
+        this._auth.signIn(email, password).subscribe({
+            next: (value) => {
+                this._router.navigate(['dashboard']);
+                this._toastr.success(`Loggedin Successfully!`);
+                this.isLoading = false;
+            },
+            error: (err) => {
+                this.isLoading = false;
+                this._toastr.error(err.message);
+            },
+        });
+    }
+
+    async signUp(name: string, email: string, password: string): Promise<void> {
         try {
             this.isLoading = true;
-            const { email, password, name } = this.authForm.value;
             await this._auth.signUp(name, email, password);
             this.authForm.reset();
             this.isLoading = false;
         } catch (err) {
             console.error(err);
             this.isLoading = false;
+        }
+    }
+
+    toggleMode(): void {
+        this.isSignUp = !this.isSignUp;
+        if (!this.isSignUp) {
+            this.authForm.removeControl('name', { emitEvent: true });
+        } else {
+            this.authForm.addControl(
+                'name',
+                new FormControl('', [
+                    Validators.required,
+                    Validators.maxLength(15),
+                ]),
+                {
+                    emitEvent: true,
+                }
+            );
         }
     }
 

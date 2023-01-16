@@ -9,6 +9,7 @@ import {
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
     updateProfile,
+    signInWithEmailAndPassword,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import {
@@ -74,6 +75,16 @@ export class AuthService {
             tap((data) => this.user.next(data)),
             retry(2),
             catchError((err: FirebaseError) => throwError(err))
+        );
+    }
+
+    signIn(email: string, password: string): Observable<User> {
+        return from(
+            signInWithEmailAndPassword(this._auth, email, password)
+        ).pipe(
+            map(({ user }) => user),
+            tap((data) => this.user.next(data)),
+            catchError((err) => throwError(err))
         );
     }
 

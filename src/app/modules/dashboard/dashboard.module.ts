@@ -1,3 +1,4 @@
+import { ContactFormComponent } from './modules/contacts/components/form/form.component';
 import { ContactsModule } from './modules/contacts/contacts.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,7 @@ import { LayoutService } from './services/layout.service';
 import { ProfileModule } from './modules/profile/profile.module';
 
 @NgModule({
-    declarations: [DashboardScreen],
+    declarations: [DashboardScreen, ContactFormComponent],
     imports: [
         DashboardRoutingModule,
         CommonModule,
