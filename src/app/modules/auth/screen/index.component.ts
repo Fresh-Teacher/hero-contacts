@@ -86,11 +86,13 @@ export class IndexComponent implements OnInit {
             next: (value) => {
                 this._router.navigate(['dashboard']);
                 this._toastr.success(`Loggedin Successfully!`);
+                this.authForm.reset();
                 this.isLoading = false;
             },
             error: (err) => {
                 this.isLoading = false;
                 this._toastr.error(err.message);
+                this.authForm.reset();
             },
         });
     }

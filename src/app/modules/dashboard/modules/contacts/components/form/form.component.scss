@@ -1,3 +1,10 @@
+::ng-deep {
+    .mat-dialog-container {
+        padding: 0;
+        @apply bg-base-100;
+    }
+}
+
 .close {
     position: absolute;
     right: 32px;
@@ -23,4 +30,21 @@
 }
 .close:after {
     transform: rotate(-45deg);
+}
+
+header {
+    @apply relative flex flex-row items-center justify-between px-2 py-2 w-full;
+}
+footer {
+    @apply gap-4 flex flex-row items-center justify-end px-3 py-1 w-full border-t-2;
+}
+
+.main-container {
+    @apply w-[90%] max-w-lg mx-auto;
+}
+
+@media (max-width: 501px) {
+    .main-container {
+        width: 100vw;
+    }
 }

@@ -1,14 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { fadeInOut } from './animations/shared.animations';
+import { MatDialogModule } from '@angular/material/dialog';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ThemeToggler } from './components/theme-toggler/theme-toggler.component';
 import { NewtworkManagerDirective } from './directives/network-manager.directive';
+import { UserForm } from './form/form.component';
 
 @NgModule({
-    declarations: [SpinnerComponent, ThemeToggler, NewtworkManagerDirective],
-    imports: [CommonModule],
-    exports: [SpinnerComponent, ThemeToggler, NewtworkManagerDirective],
+    declarations: [
+        SpinnerComponent,
+        ThemeToggler,
+        NewtworkManagerDirective,
+        UserForm,
+    ],
+    imports: [CommonModule, MatDialogModule],
+    exports: [
+        SpinnerComponent,
+        ThemeToggler,
+        NewtworkManagerDirective,
+        MatDialogModule,
+        UserForm,
+    ],
     providers: [],
 })
 export class SharedModule {}
