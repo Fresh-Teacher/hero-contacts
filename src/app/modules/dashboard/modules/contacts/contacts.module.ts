@@ -4,6 +4,7 @@ import { ContactCardComponent } from './components/contact-card/contact-card.com
 import { DetailedContactScreen } from './screens/detailed-contact/detailed-contact';
 import { ContactsIndexScreen } from './screens/index/index.screen';
 import { ContactsRoutingModule } from './contacts-routing.module';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -11,7 +12,7 @@ import { ContactsRoutingModule } from './contacts-routing.module';
         ContactsIndexScreen,
         DetailedContactScreen,
     ],
-    imports: [ContactsRoutingModule, CommonModule],
+    imports: [ContactsRoutingModule, CommonModule, SharedModule],
     exports: [],
 })
 export class ContactsModule {}

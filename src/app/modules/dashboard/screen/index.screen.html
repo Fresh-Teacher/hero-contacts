@@ -2,12 +2,12 @@
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <article class="drawer-content flex flex-col">
         <!-- Navbar -->
-        <section class="w-full p-2 md:p-4 h-20 navbar bg-base-300">
+        <section class="w-full p-2 md:p-4 h-20 navbar bg-primary">
             <section class="flex-none lg:hidden">
                 <label
                     for="my-drawer-3"
                     data-tip="Open Sidebar!"
-                    class="btn btn-square btn-ghost"
+                    class="btn btn-square btn-ghost text-base-100"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -29,8 +29,8 @@
             <ng-container *ngIf="isTablet; else isDesktop">
                 <h1 class="flex-1 flex justify-between pl-2">
                     <span class="text-xl md:text-3xl font-bold"
-                        ><a href="/" class="cursor-pointer text-base-content"
-                            >Welcome {{ loggedInUser.displayName }}
+                        ><a href="/" class="cursor-pointer text-base-100"
+                            >Welcome {{ loggedInUser.displayName }} !!
                         </a></span
                     >
                     <div class="flex justify-end" *ngIf="isTablet">
@@ -40,8 +40,8 @@
             </ng-container>
             <ng-template #isDesktop>
                 <h1 class="flex-1 px-2 text-3xl font-bold">
-                    <a href="/" class="cursor-pointer"
-                        >Welcome {{ loggedInUser.displayName }}</a
+                    <a href="/" class="cursor-pointer text-base-100"
+                        >Welcome {{ loggedInUser.displayName }} !!</a
                     >
                 </h1>
             </ng-template>
@@ -51,26 +51,16 @@
                     <theme-toggler *ngIf="!isTablet"></theme-toggler>
                     <li>
                         <a
-                            class="btn btn-ghost mx-2 rounded-none"
+                            class="btn btn-ghost mx-2 text-base-100 rounded-none"
                             routerLink="/dashboard/contacts"
-                            routerLinkActive="bg-base-100"
+                            routerLinkActive="bg-primary-100"
                             [routerLinkActiveOptions]="{ exact: true }"
                             >Contacts</a
                         >
                     </li>
-
-                    <li>
-                        <a
-                            class="btn btn-ghost mx-2 rounded-none"
-                            routerLinkActive="bg-base-100"
-                            routerLink="/dashboard/contacts/view"
-                            [routerLinkActiveOptions]="{ exact: true }"
-                            >Add Contact</a
-                        >
-                    </li>
                     <li>
                         <button
-                            class="btn btn-ghost mx-2 rounded-none"
+                            class="btn btn-ghost mx-2 text-base-100 rounded-none"
                             (click)="logout()"
                         >
                             Signout
@@ -79,10 +69,10 @@
 
                     <li>
                         <a
-                            class="btn btn-ghost mx-2 rounded-none"
+                            class="btn btn-ghost mx-2 text-base-100 rounded-none"
                             routerLink="/dashboard/profile"
                             [routerLinkActiveOptions]="{ exact: true }"
-                            routerLinkActive="bg-base-100"
+                            routerLinkActive="bg-primary-100"
                             >Profile</a
                         >
                     </li>
@@ -93,7 +83,7 @@
         <router-outlet></router-outlet>
     </article>
     <article class="drawer-side">
-        <label for="my-drawer-3" class="drawer-overlay"></label>
+        <label for="my-drawer-3" class="drawer-overlay text-base-100"></label>
         <ul class="menu p-4 w-1/2 md:w-1/5 bg-base-100">
             <!-- Sidebar content here -->
 
@@ -103,14 +93,6 @@
                     routerLinkActive="bg-base-200"
                     [routerLinkActiveOptions]="{ exact: true }"
                     >Contacts</a
-                >
-            </li>
-            <li>
-                <a
-                    routerLink="/dashboard/contacts/view"
-                    routerLinkActive="bg-base-200"
-                    [routerLinkActiveOptions]="{ exact: true }"
-                    >Add Contact</a
                 >
             </li>
             <li>

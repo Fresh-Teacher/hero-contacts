@@ -5,6 +5,7 @@ import { ToastService } from 'src/app/services/toaster.service';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactFormComponent } from '../../components/form/form.component';
+import { UserForm } from 'src/app/modules/shared/form/form.component';
 
 @Component({
     selector: 'contacts-screen',
@@ -33,11 +34,11 @@ export class ContactsIndexScreen {
         });
     }
 
-    // addModal(): void {
-    //     this._dialog.open(ContactFormComponent, {
-    //         panelClass: ['md:max-w-md', 'md:w-5/12'],
-    //     });
-    // }
+    addModal(): void {
+        this._dialog.open(UserForm, {
+            panelClass: ['md:max-w-md', 'md:w-5/12'],
+        });
+    }
 
     onCheck({ id, isChecked }: { id: number; isChecked: boolean }): void {
         // console.log(id, isChecked);

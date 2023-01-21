@@ -1,0 +1,101 @@
+<header class="flex items-center justify-between p-4 bg-base-content">
+    <p class="text-md text-base-100 lg:text-xl font-bold">Add Contact</p>
+</header>
+
+<article class="p-3 lg:p-5 bg-base-100">
+    <form action="" [formGroup]="userForm" (submit)="onSubmit()">
+        <ng-container
+            *ngFor="let field of formConfiguration.controls; let i = index"
+        >
+            <ng-container [ngSwitch]="field.type">
+                <ng-container *ngSwitchCase="FormControlTypes.TEXT">
+                    <ng-container
+                        *ngTemplateOutlet="
+                            text;
+                            context: { field, i, userForm }
+                        "
+                    ></ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="FormControlTypes.NUMBER">
+                    <ng-container
+                        *ngTemplateOutlet="number; context: { field, i }"
+                    ></ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="FormControlTypes.CHECKBOX">
+                    <ng-container
+                        *ngTemplateOutlet="checkbox; context: { field, i }"
+                    ></ng-container>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+
+        <!-- Template for text inputs -->
+        <ng-template #text let-field="field" let-i="i" let-userForm="userForm">
+            <section class="form-control w-full">
+                <label
+                    class="text-base-content block font-semibold text-sm lg:text-lg"
+                    [for]="field.label"
+                    >{{ field.label }} :</label
+                >
+                <input
+                    [formControlName]="field.controlName"
+                    class="input input-sm mt-2 lg:input-md text-base-content input-bordered w-full block"
+                    [type]="field.type"
+                />
+                {{ userForm.get(field.controlName).error | json }}
+                <label
+                    [for]="field.label"
+                    *ngIf="userForm.get(field.controlName).error"
+                >
+                    {{ userForm.get(field.contrlName).error | json }}
+                </label>
+            </section>
+
+            <hr />
+        </ng-template>
+
+        <ng-template
+            #number
+            let-field="field"
+            let-i="i"
+            let-userForm="userForm"
+        >
+            <section class="form-control w-full">
+                <label
+                    class="text-base-content block font-semibold text-sm lg:text-lg"
+                    [for]="field.label"
+                    >{{ field.label }} :</label
+                >
+                <input
+                    [formControlName]="field.controlName"
+                    class="input input-sm mt-2 lg:input-md text-base-content input-bordered w-full block"
+                    [type]="field.type"
+                />
+            </section>
+
+            <hr />
+        </ng-template>
+
+        <footer class="flex bg-base-100 justify-end">
+            <button
+                class="btn btn-ghost btn-sm lg:btn-md text-base-content mx-4"
+                type="button"
+                (click)="close()"
+            >
+                Cancel
+            </button>
+            <button
+                class="btn btn-sm lg:btn-md"
+                type="submit"
+                [ngClass]="{ loading: loading }"
+                networkDisabled
+            >
+                Submit
+            </button>
+        </footer>
+    </form>
+</article>
+
+<ng-template #checkbox let-field="field">
+    <section>{{ field | json }}</section>
+</ng-template>
