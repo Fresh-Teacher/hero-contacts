@@ -164,14 +164,14 @@
     "@angular-eslint/bundled-angular-compiler" "15.2.0"
     "@typescript-eslint/utils" "5.48.1"
 
-"@angular/animations@^13.0.0 || ^14.0.0-0", "@angular/animations@~13.3.0", "@angular/animations@13.3.12":
+"@angular/animations@~13.3.0", "@angular/animations@13.3.12":
   "integrity" "sha512-dc2JDokKJuuNxzzZa9FvuQU71kYC/e0xCLjGxEgX48sGKwajHRGBuzYFb8EmvLeA24SshYGmrxN0vGG9GhLK6g=="
   "resolved" "https://registry.npmjs.org/@angular/animations/-/animations-13.3.12.tgz"
   "version" "13.3.12"
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/cdk@^13.3.9", "@angular/cdk@13.3.9":
+"@angular/cdk@^13.3.9":
   "integrity" "sha512-XCuCbeuxWFyo3EYrgEYx7eHzwl76vaWcxtWXl00ka8d+WAOtMQ6Tf1D98ybYT5uwF9889fFpXAPw98mVnlo3MA=="
   "resolved" "https://registry.npmjs.org/@angular/cdk/-/cdk-13.3.9.tgz"
   "version" "13.3.9"
@@ -265,17 +265,10 @@
     "tslib" "^2.0.0"
     "winston" "^3.0.0"
 
-"@angular/forms@^13.0.0 || ^14.0.0-0", "@angular/forms@~13.3.0":
+"@angular/forms@~13.3.0":
   "integrity" "sha512-auow1TKZx44ha1ia8Jwg2xp2Q7BbpShG5Ft8tewL3T44aTmJY7svWOE/m+DkZ/SXHmTFnbZFobGU5aEfe0+pNw=="
   "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-13.3.12.tgz"
   "version" "13.3.12"
-  dependencies:
-    "tslib" "^2.3.0"
-
-"@angular/material@^13.3.9":
-  "integrity" "sha512-FU8lcMgo+AL8ckd27B4V097ZPoIZNRHiCe3wpgkImT1qC0YwcyXZVn0MqQTTFSdC9a/aI8wPm3AbTClJEVw5Vw=="
-  "resolved" "https://registry.npmjs.org/@angular/material/-/material-13.3.9.tgz"
-  "version" "13.3.9"
   dependencies:
     "tslib" "^2.3.0"
 
@@ -286,7 +279,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/platform-browser@^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0", "@angular/platform-browser@^13.0.0 || ^14.0.0-0", "@angular/platform-browser@>=12.0.0-0", "@angular/platform-browser@~13.3.0", "@angular/platform-browser@13.3.12":
+"@angular/platform-browser@^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0", "@angular/platform-browser@>=12.0.0-0", "@angular/platform-browser@~13.3.0", "@angular/platform-browser@13.3.12":
   "integrity" "sha512-sfhQqU4xjTJCjkH62TQeH5/gkay/KzvNDF95J6NHi/Q6p2dbtzZdXuLJKR/sHxtF2kc505z5v9RNm6XMSXM1KA=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-13.3.12.tgz"
   "version" "13.3.12"

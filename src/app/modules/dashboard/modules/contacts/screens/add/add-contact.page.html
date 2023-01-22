@@ -1,0 +1,190 @@
+<article class="p-4">
+    <section
+        class="flex item justify-between items-center md:px-2 md:pb-4 px-1 pb-2"
+    >
+        <h1 class="text-xl text-center md:text-3xl font-bold">Add Contact</h1>
+        <button (click)="back()" class="btn btn-sm md:btn-md">Back</button>
+    </section>
+    <hr />
+
+    <form
+        [formGroup]="addContactForm"
+        (ngSubmit)="submit()"
+        class="grid grid-cols-1 md:gap-4 gap-2 max-w-3xl mx-auto grid-rows-1 lg:grid-cols-2 lg:grid-rows-[minmax(1fr,100px)_1fr_1fr]"
+    >
+        <section class="forom-control lg:col-span-2">
+            <label
+                class="label text-sm md:text-base lg:text-lg font-semibold"
+                for="name"
+                [ngClass]="{'text-error' : name.errors && name.touched}"
+            >
+                Name :
+            </label>
+            <input
+                type="text"
+                formControlName="name"
+                [ngClass]="{'input-error' : name.errors && name.touched}"
+                class="input-sm md:input-md input input-bordered w-full"
+            />
+            <section *ngIf="name.errors && name.touched" @fade>
+                <p class="text-sm mt-2 text-error font-semibold">
+                    <ng-container *ngIf="name.errors.required"
+                        >Name is required</ng-container
+                    >
+                </p>
+            </section>
+        </section>
+
+        <section class="lg:col-span-2" formArrayName="contacts">
+            <section
+                @fade
+                *ngFor="let phone of contacts.controls; last as isLast; let i = index"
+                [formGroupName]="i"
+            >
+                <article
+                    class="grid gap-2 md:gap-4 grid-cols-1 md:grid-cols-[1fr_1fr_0.1fr] relative"
+                >
+                    <section>
+                        <label
+                            class="label text-sm md:text-lg font-semibold"
+                            for="name"
+                            [ngClass]="{'text-error':phone.get('phone').errors && phone.get('phone').touched}"
+                        >
+                            {{ i + 1}}) Phone :
+                        </label>
+                        <input
+                            type="number"
+                            formControlName="phone"
+                            [ngClass]="{'input-error': phone.get('phone').errors && phone.get('phone').touched}"
+                            class="input-sm md:input-md input input-bordered w-full"
+                        />
+                        <section
+                            *ngIf="phone.get('phone').errors && phone.get('phone').touched"
+                            @fade
+                        >
+                            <p class="text-sm mt-2 text-error font-semibold">
+                                <ng-container
+                                    *ngIf="phone.get('phone').errors.required"
+                                    >Phone number is required</ng-container
+                                >
+                                <ng-container
+                                    *ngIf="phone.get('phone').errors.pattern"
+                                    >Phone number must of 10
+                                    digits</ng-container
+                                >
+                            </p>
+                        </section>
+                    </section>
+                    <section>
+                        <label
+                            class="label text-sm md:text-lg font-semibold"
+                            for="name"
+                            [ngClass]="{'text-error':phone.get('email').errors && phone.get('email').touched}"
+                        >
+                            {{ i + 1}}) Email :
+                        </label>
+                        <input
+                            type="email"
+                            formControlName="email"
+                            [ngClass]="{'input-error':phone.get('email').errors && phone.get('email').touched}"
+                            class="input-sm md:input-md input input-bordered w-full"
+                        />
+                        <section
+                            *ngIf="phone.get('email').errors && phone.get('email').touched"
+                            @fade
+                        >
+                            <p class="text-sm mt-2 text-error font-semibold">
+                                <ng-container
+                                    *ngIf="phone.get('email').errors.required"
+                                    >Email is required</ng-container
+                                >
+                                <ng-container
+                                    *ngIf="phone.get('email').errors.pattern"
+                                    >Email is invalid</ng-container
+                                >
+                            </p>
+                        </section>
+                    </section>
+                    <button
+                        class="btn btn-error place-self-end btn-sm md:btn-md"
+                        (click)="removePhone(i)"
+                        type="button"
+                        [disabled]="contacts.controls.length <= 1"
+                    >
+                        Delete
+                    </button>
+                </article>
+            </section>
+            <label
+                for="error"
+                @fade
+                class="label text-error"
+                *ngIf="contacts.controls.length === 3"
+                >We cannot add more then 3 contacts for now</label
+            >
+            <section class="mt-2 md:mt-4 flex justify-end items-center">
+                <button
+                    class="btn btn-sm md:btn-md"
+                    [disabled]="contacts.controls.length >= 3"
+                    type="button"
+                    (click)="addPhone()"
+                >
+                    Add More Phone and Email
+                </button>
+            </section>
+        </section>
+        <section class="flex items-center lg:col-span-2">
+            <h1 class="text-base font-bold mx-1">Type :</h1>
+            <div
+                *ngFor="let type of contactsType"
+                class="flex justify-between items-center m-1"
+            >
+                <input
+                    type="radio"
+                    [value]="type"
+                    formControlName="type"
+                    class="radio inline-block mx-2"
+                />
+                <label [for]="type" class="font-bold text-base">
+                    {{ type }}
+                </label>
+            </div>
+        </section>
+
+        <section class="form-control w-full lg:col-span-2">
+            <label
+                class="label text-sm md:text-base lg:text-lg font-semibold"
+                for="description"
+                [ngClass]="{'text-error':description.errors && description.touched}"
+            >
+                Tell us more about him/her :
+            </label>
+
+            <textarea
+                formControlName="description"
+                [ngClass]="{'textarea-error':description.errors && description.touched}"
+                class="textarea textarea-bordered"
+            ></textarea>
+            <section *ngIf="description.errors && description.touched" @fade>
+                <p class="text-sm mt-2 text-error font-semibold">
+                    <ng-container *ngIf="description.errors.required"
+                        >Description is required</ng-container
+                    >
+                </p>
+            </section>
+        </section>
+
+        <footer class="col-span-2 flex justify-end">
+            <button type="button" (click)="back()" class="btn btn-ghost mx-4">
+                Cancel
+            </button>
+            <button
+                type="submit"
+                [disabled]="!addContactForm.valid"
+                class="btn-success btn btn-sm md:btn-md"
+            >
+                Submit
+            </button>
+        </footer>
+    </form>
+</article>

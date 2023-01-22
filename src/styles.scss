@@ -2,7 +2,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
 * {
     margin: 0;
     padding: 0;
@@ -22,10 +21,4 @@ body {
 body {
     margin: 0;
     font-family: Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.mat-dialog-container {
-    padding: 0 !important;
-    height: auto;
-    background-color: transparent !important;
 }

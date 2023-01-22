@@ -6,7 +6,6 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
 import { fadeInOut } from '../animations/shared.animations';
 import { FormBaseValidatorTypes, FormControlTypes } from './types/form.enums';
 import { FormControlData, getFormConfiguration } from './types/form.types';
@@ -27,7 +26,6 @@ export class UserForm {
 
     constructor(
         private _fb: FormBuilder,
-        private _dialogueRef: MatDialogRef<UserForm>,
         private _network: NetworkManagerService
     ) {
         this.userForm = this._fb.group({});
@@ -65,7 +63,5 @@ export class UserForm {
         console.log(this.userForm);
     }
 
-    close(): void {
-        this._dialogueRef.close();
-    }
+    close(): void {}
 }

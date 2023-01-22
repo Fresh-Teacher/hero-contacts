@@ -3,7 +3,6 @@ import { CommonService } from 'src/app/services/common.service';
 import { Component } from '@angular/core';
 import { ToastService } from 'src/app/services/toaster.service';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
-import { MatDialog } from '@angular/material/dialog';
 import { ContactFormComponent } from '../../components/form/form.component';
 import { UserForm } from 'src/app/modules/shared/form/form.component';
 
@@ -21,8 +20,7 @@ export class ContactsIndexScreen {
     constructor(
         private _common: CommonService,
         private _layout: LayoutService,
-        private _toastr: ToastService,
-        private _dialog: MatDialog
+        private _toastr: ToastService
     ) {
         this._common.setTitle('Contacts - Dashboard');
         this._layout.numberOfCardSelected.subscribe((count) => {
@@ -34,11 +32,7 @@ export class ContactsIndexScreen {
         });
     }
 
-    addModal(): void {
-        this._dialog.open(UserForm, {
-            panelClass: ['md:max-w-md', 'md:w-5/12'],
-        });
-    }
+    addModal(): void {}
 
     onCheck({ id, isChecked }: { id: number; isChecked: boolean }): void {
         // console.log(id, isChecked);

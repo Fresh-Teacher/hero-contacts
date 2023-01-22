@@ -1,9 +1,14 @@
 <article class="p-4">
-    <section class="flex item justify-between md:px-2 md:pb-4 px-1 pb-2">
+    <section
+        class="flex item justify-between items-center md:px-2 md:pb-4 px-1 pb-2"
+    >
         <h1 class="text-xl text-center md:text-3xl font-bold">Contacts</h1>
-        <button (click)="addModal()" class="btn">Add</button>
+        <a routerLink="/dashboard/contacts/add" class="btn btn-sm lg:btn-md"
+            >Add</a
+        >
     </section>
-    <section class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+    <hr />
+    <section class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 mt-2">
         <ng-container *ngFor="let item of list">
             <contact-card
                 @fade
