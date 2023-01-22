@@ -3,14 +3,20 @@
         class="flex item justify-between items-center md:px-2 md:pb-4 px-1 pb-2"
     >
         <h1 class="text-xl text-center md:text-3xl font-bold">Add Contact</h1>
-        <button (click)="back()" class="btn btn-sm md:btn-md">Back</button>
+        <button
+            (click)="back()"
+            data-tip="Back to Contacts"
+            class="btn btn-sm md:btn-md tooltip tooltip-left"
+        >
+            Back
+        </button>
     </section>
     <hr />
 
     <form
         [formGroup]="addContactForm"
         (ngSubmit)="submit()"
-        class="grid grid-cols-1 bg-base-200 p-4 md:gap-4 gap-2 max-w-3xl mx-auto grid-rows-1 lg:grid-rows-[minmax(1fr,100px)_1fr_1fr]"
+        class="grid grid-cols-1 rounded-md shadow-md shadow-base-300 bg-base-200 p-4 md:gap-4 gap-2 max-w-3xl mx-auto grid-rows-1 lg:grid-rows-[minmax(1fr,100px)_1fr_1fr]"
     >
         <section class="forom-control">
             <label
@@ -110,9 +116,10 @@
                         </section>
                     </section>
                     <button
-                        class="btn btn-error place-self-end btn-sm md:btn-md"
+                        class="btn btn-error place-self-end btn-sm md:btn-md tooltip tooltip-left"
                         (click)="removePhone(i)"
                         type="button"
+                        data-tip="delete phone and email"
                         [disabled]="contacts.controls.length <= 1"
                     >
                         Delete
@@ -128,12 +135,13 @@
             >
             <section class="mt-2 md:mt-4 flex justify-end items-center">
                 <button
-                    class="btn btn-sm md:btn-md"
+                    class="btn btn-sm md:btn-md tooltip tooltip-left"
                     [disabled]="contacts.controls.length >= 3"
                     type="button"
+                    data-tip="Add More Email and Phone Numbers"
                     (click)="addPhone()"
                 >
-                    Add More Phone and Email
+                    +1
                 </button>
             </section>
         </section>
@@ -187,7 +195,8 @@
             <button
                 type="button"
                 (click)="back()"
-                class="btn btn-sm md:btn-md btn-ghost mx-4"
+                class="btn btn-sm md:btn-md btn-ghost mx-4 tooltip tooltip-left"
+                data-tip="Back to previous page"
             >
                 Cancel
             </button>
