@@ -3,8 +3,6 @@ import { CommonService } from 'src/app/services/common.service';
 import { Component } from '@angular/core';
 import { ToastService } from 'src/app/services/toaster.service';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
-import { ContactFormComponent } from '../../components/form/form.component';
-import { UserForm } from 'src/app/modules/shared/form/form.component';
 
 @Component({
     selector: 'contacts-screen',
