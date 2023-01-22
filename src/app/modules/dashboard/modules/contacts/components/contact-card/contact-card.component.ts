@@ -1,10 +1,4 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LayoutService } from 'src/app/modules/dashboard/services/layout.service';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 import { TStoFix } from 'src/app/types/common-types';

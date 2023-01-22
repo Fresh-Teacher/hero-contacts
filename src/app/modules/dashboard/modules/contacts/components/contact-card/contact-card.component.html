@@ -9,7 +9,9 @@
     </figure>
     <div class="card-body p-2">
         <section class="flex justify-between">
-            <h2 class="card-title">{{ ids }} New movie is released!</h2>
+            <h2 class="card-title text-sm lg:text-base">
+                {{ ids }} New movie is released!
+            </h2>
             <input
                 type="checkbox"
                 (change)="onMultiSelect($event)"
@@ -18,10 +20,12 @@
                 class="checkbox tooltip tooltip-left"
             />
         </section>
-        <p>Click the button to watch on Jetflix app.</p>
+        <p class="text-sm lg:text-base">
+            Click the button to watch on Jetflix app.
+        </p>
         <div @fade *ngIf="!isMultiSelected" class="card-actions justify-end">
-            <button class="btn btn-primary">Watch</button>
-            <button class="btn btn-error">Delete</button>
+            <button class="btn btn-sm lg:btn-md btn-primary">Watch</button>
+            <button class="btn btn-sm lg:btn-md btn-error">Delete</button>
         </div>
     </div>
 </div>

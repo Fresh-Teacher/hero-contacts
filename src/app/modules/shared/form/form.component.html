@@ -30,7 +30,13 @@
         </ng-container>
 
         <!-- Template for text inputs -->
-        <ng-template #text let-field="field" let-i="i" let-userForm="userForm">
+
+        <ng-template
+            #number
+            let-field="field"
+            let-i="i"
+            let-userForm="userForm"
+        >
             <section class="form-control w-full">
                 <label
                     class="text-base-content block font-semibold text-sm lg:text-lg"
@@ -42,24 +48,14 @@
                     class="input input-sm mt-2 lg:input-md text-base-content input-bordered w-full block"
                     [type]="field.type"
                 />
-                {{ userForm.get(field.controlName).error | json }}
-                <label
-                    [for]="field.label"
-                    *ngIf="userForm.get(field.controlName).error"
-                >
-                    {{ userForm.get(field.contrlName).error | json }}
-                </label>
             </section>
 
             <hr />
         </ng-template>
 
-        <ng-template
-            #number
-            let-field="field"
-            let-i="i"
-            let-userForm="userForm"
-        >
+        <!-------Template For Number type------>
+
+        <ng-template #text let-field="field" let-i="i" let-userForm="userForm">
             <section class="form-control w-full">
                 <label
                     class="text-base-content block font-semibold text-sm lg:text-lg"
