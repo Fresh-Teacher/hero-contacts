@@ -1,5 +1,5 @@
-import { ContactType } from './../../model/contacts.model';
-import { Component } from '@angular/core';
+import { Contact, ContactType } from './../../model/contacts.model';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { CommonService } from 'src/app/services/common.service';
 import {
@@ -11,6 +11,10 @@ import {
     AbstractControl,
 } from '@angular/forms';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { Router } from '@angular/router';
+import { ContactService } from '../../services/contacts.service';
+import { ToastService } from 'src/app/services/toaster.service';
 
 @Component({
     selector: 'add-contact',
@@ -18,14 +22,19 @@ import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
     styleUrls: ['./add-contact.page.scss'],
     animations: [fadeInOut],
 })
-export class AddContactPage {
+export class AddContactPage implements OnInit {
     addContactForm: FormGroup;
 
+    userId: string;
     contactsType: ContactType[] = ['Home', 'Office'];
     constructor(
         private _common: CommonService,
         private _location: Location,
-        private _fb: FormBuilder
+        private _auth: AuthService,
+        private _fb: FormBuilder,
+        private _toastr: ToastService,
+        private _router: Router,
+        private _contactService: ContactService
     ) {
         this._common.setTitle('Add');
         this.addContactForm = this._fb.group({
@@ -52,13 +61,27 @@ export class AddContactPage {
         });
     }
 
+    ngOnInit(): void {
+        this._auth.user.subscribe(
+            (user) => (this.userId = `${user.email}+${user.uid}`)
+        );
+    }
+
     get contacts(): FormArray {
         return this.addContactForm.get('contacts') as FormArray;
     }
 
-    submit(): void {
-        console.log(this.addContactForm.value);
-        this.addContactForm.reset();
+    async submit(): Promise<void> {
+        try {
+            await this._contactService.addContact(
+                this.addContactForm.value as Contact
+            );
+            this._router.navigate(['dashboard/contacts']);
+        } catch (err) {
+            this._toastr.error(err.message);
+        } finally {
+            this.addContactForm.reset();
+        }
     }
 
     addPhone(): void {

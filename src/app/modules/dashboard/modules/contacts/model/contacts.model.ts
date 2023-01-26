@@ -14,3 +14,8 @@ export interface ContactsMetaData {
     phoneNumber: number;
     email: string;
 }
+
+export enum COLLECTIONS {
+    CONTACTS = 'contacts',
+    USERS = 'Users',
+}

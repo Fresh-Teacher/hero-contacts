@@ -1,24 +1,38 @@
 import { LayoutService } from 'src/app/modules/dashboard/services/layout.service';
 import { CommonService } from 'src/app/services/common.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastService } from 'src/app/services/toaster.service';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
+
+import { Contact } from '../../model/contacts.model';
+import {
+    AngularFirestore,
+    AngularFirestoreCollection,
+    AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
+import { map, Observable } from 'rxjs';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { ContactService } from '../../services/contacts.service';
 
 @Component({
     selector: 'contacts-screen',
     templateUrl: './index.screen.html',
     animations: [fadeInOut],
 })
-export class ContactsIndexScreen {
-    list = Array.from({ length: 5 }, (e, id) => ({
-        id,
-        isChecked: false,
-    }));
+export class ContactsIndexScreen implements OnInit {
+    contactsCollection: AngularFirestoreCollection<Contact>;
+
+    list: Observable<Contact[]>;
+
+    userID: string;
     isMultiSelected!: boolean;
     constructor(
         private _common: CommonService,
         private _layout: LayoutService,
-        private _toastr: ToastService
+        private _toastr: ToastService,
+        private _afs: AngularFirestore,
+        private _auth: AuthService,
+        private _contactService: ContactService
     ) {
         this._common.setTitle('Contacts - Dashboard');
         this._layout.numberOfCardSelected.subscribe((count) => {
@@ -28,6 +42,11 @@ export class ContactsIndexScreen {
                 this.isMultiSelected = false;
             }
         });
+    }
+
+    async ngOnInit(): Promise<void> {
+        this.list = this._contactService.getContacts();
+        this._toastr.success('Fetched Contacts Data!!');
     }
 
     addModal(): void {}

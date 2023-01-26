@@ -20,6 +20,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class IndexComponent implements OnInit {
     isSignUp = true;
+
+    isShown = false;
     authForm = this._fb.group({
         name: new FormControl('', [
             Validators.required,
@@ -41,6 +43,13 @@ export class IndexComponent implements OnInit {
         private _toastr: ToastService
     ) {
         this._common.setTitle('Auth');
+        setTimeout(() => {
+            this.isShown = true;
+        }, 2000);
+    }
+
+    closeBanner(b: boolean) {
+        this.isShown = false;
     }
 
     get email(): AbstractControl {
@@ -72,7 +81,6 @@ export class IndexComponent implements OnInit {
 
     async submitForm(): Promise<void> {
         const { email, password, name } = this.authForm.value;
-        console.log(this.authForm.value);
         if (this.isSignUp) {
             this.signUp(name, email, password);
         } else {

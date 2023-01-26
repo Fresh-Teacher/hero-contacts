@@ -7,11 +7,17 @@
     </div>
     <h1 class="text-zinc-600 text-3xl p-6 md:hidden">Welcome To My Contacts</h1>
     <article
-        class="w-[90%] bg-base-300 mx-auto md:absolute md:z-30 md:top-0 md:right-40 mt-14 max-w-md rounded-md shadow-sm md:bg-base-300 p-4 md:p-8"
+        class="w-[90%] mx-auto md:absolute md:z-30 md:top-0 md:right-40 mt-14 max-w-md"
     >
+        <message
+            *ngIf="isShown"
+            (onClick)="closeBanner($event)"
+            message="We don't store any personal information of user i.e password etc."
+        ></message>
         <form
             [formGroup]="authForm"
             action="authentication"
+            class="mt-4 bg-base-300 p-4 md:p-8 rounded-md shadow-sm"
             (ngSubmit)="submitForm()"
         >
             <section class="" @fade *ngIf="isSignUp">
@@ -111,60 +117,64 @@
             >
                 {{ isSignUp ? 'Signup' : 'Login' }}
             </button>
-        </form>
-        <section
-            class="grid grid-rows-2 md:grid-rows-none grid-cols-none mt-4 md:grid-cols-2 gap-2"
-        >
-            <button
-                type="button"
-                networkDisabled
-                [disabled]="isLoading"
-                (click)="signInWithGoogle()"
-                data-tip="Login With Google"
-                class="btn btn-sm md:btn-md tooltip tooltip-top flex justify-center items-center"
+            <section
+                class="grid grid-rows-2 md:grid-rows-none grid-cols-none mt-4 md:grid-cols-2 gap-2"
             >
-                <div class="md:h-6 md:w-6 h-4 w-4">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                        viewBox="0 0 48 48"
-                    >
-                        <defs>
+                <button
+                    type="button"
+                    networkDisabled
+                    [disabled]="isLoading"
+                    (click)="signInWithGoogle()"
+                    data-tip="Login With Google"
+                    class="btn btn-sm md:btn-md tooltip tooltip-top flex justify-center items-center"
+                >
+                    <div class="md:h-6 md:w-6 h-4 w-4">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            viewBox="0 0 48 48"
+                        >
+                            <defs>
+                                <path
+                                    id="a"
+                                    d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"
+                                />
+                            </defs>
+                            <clipPath id="b">
+                                <use xlink:href="#a" overflow="visible" />
+                            </clipPath>
                             <path
-                                id="a"
-                                d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"
+                                clip-path="url(#b)"
+                                fill="#FBBC05"
+                                d="M0 37V11l17 13z"
                             />
-                        </defs>
-                        <clipPath id="b">
-                            <use xlink:href="#a" overflow="visible" />
-                        </clipPath>
-                        <path
-                            clip-path="url(#b)"
-                            fill="#FBBC05"
-                            d="M0 37V11l17 13z"
-                        />
-                        <path
-                            clip-path="url(#b)"
-                            fill="#EA4335"
-                            d="M0 11l17 13 7-6.1L48 14V0H0z"
-                        />
-                        <path
-                            clip-path="url(#b)"
-                            fill="#34A853"
-                            d="M0 37l30-23 7.9 1L48 0v48H0z"
-                        />
-                        <path
-                            clip-path="url(#b)"
-                            fill="#4285F4"
-                            d="M48 48L17 24l-4-3 35-10z"
-                        />
-                    </svg>
-                </div>
-                <span class="mx-2 md:hidden block">Login With Google</span>
-            </button>
-            <button (click)="toggleMode()" class="btn btn-sm md:btn-md">
-                Switch to {{ isSignUp ? 'Login' : 'Signup' }}
-            </button>
-        </section>
+                            <path
+                                clip-path="url(#b)"
+                                fill="#EA4335"
+                                d="M0 11l17 13 7-6.1L48 14V0H0z"
+                            />
+                            <path
+                                clip-path="url(#b)"
+                                fill="#34A853"
+                                d="M0 37l30-23 7.9 1L48 0v48H0z"
+                            />
+                            <path
+                                clip-path="url(#b)"
+                                fill="#4285F4"
+                                d="M48 48L17 24l-4-3 35-10z"
+                            />
+                        </svg>
+                    </div>
+                    <span class="mx-2 md:hidden block">Login With Google</span>
+                </button>
+                <button
+                    (click)="toggleMode()"
+                    type="button"
+                    class="btn btn-sm md:btn-md"
+                >
+                    Switch to {{ isSignUp ? 'Login' : 'Signup' }}
+                </button>
+            </section>
+        </form>
     </article>
 </main>

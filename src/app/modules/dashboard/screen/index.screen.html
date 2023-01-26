@@ -28,7 +28,7 @@
 
             <ng-container *ngIf="isTablet; else isDesktop">
                 <h1 class="flex-1 flex justify-between pl-2">
-                    <span class="text-lg md:text-3xl font-bold"
+                    <span class="text-lg md:text-2xl font-bold"
                         ><a href="/" class="cursor-pointer text-base-100"
                             >Welcome {{ loggedInUser.displayName }} !!
                         </a></span
@@ -58,24 +58,39 @@
                             >Contacts</a
                         >
                     </li>
-                    <li>
-                        <button
-                            class="btn btn-ghost mx-2 text-base-100 rounded-none"
-                            (click)="logout()"
-                        >
-                            Signout
-                        </button>
-                    </li>
 
-                    <li>
-                        <a
-                            class="btn btn-ghost mx-2 text-base-100 rounded-none"
-                            routerLink="/dashboard/profile"
-                            [routerLinkActiveOptions]="{ exact: true }"
-                            routerLinkActive="bg-primary-100"
-                            >Profile</a
+                    <div class="dropdown dropdown-end">
+                        <label tabindex="0" class="m-1">
+                            <div
+                                class="avatar tooltip tooltip-bottom"
+                                data-tip="Profile"
+                            >
+                                <div class="w-12 cursor-pointer rounded-full">
+                                    <img [src]="loggedInUser.photoURL" />
+                                </div>
+                            </div>
+                        </label>
+                        <ul
+                            tabindex="0"
+                            class="dropdown-content menu p-2 shadow bg-base-200 rounded-box w-52"
                         >
-                    </li>
+                            <li class="w-full">
+                                <a
+                                    class="inline-block w-full"
+                                    routerLink="/dashboard/profile"
+                                    [routerLinkActiveOptions]="{ exact: true }"
+                                    routerLinkActive="bg-primary-100"
+                                    >Profile</a
+                                >
+                            </li>
+
+                            <li class="w-full">
+                                <label class="block w-full" (click)="logout()">
+                                    Lognout
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
                 </ul>
             </section>
         </section>

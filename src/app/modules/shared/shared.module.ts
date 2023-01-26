@@ -1,3 +1,4 @@
+import { MessageComponent } from './components/message/message.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -6,13 +7,19 @@ import { ThemeToggler } from './components/theme-toggler/theme-toggler.component
 import { NewtworkManagerDirective } from './directives/network-manager.directive';
 
 @NgModule({
-    declarations: [SpinnerComponent, ThemeToggler, NewtworkManagerDirective],
+    declarations: [
+        SpinnerComponent,
+        ThemeToggler,
+        NewtworkManagerDirective,
+        MessageComponent,
+    ],
     imports: [CommonModule, ReactiveFormsModule],
     exports: [
         SpinnerComponent,
         ThemeToggler,
         NewtworkManagerDirective,
         ReactiveFormsModule,
+        MessageComponent,
     ],
     providers: [],
 })
