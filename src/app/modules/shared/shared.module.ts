@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ThemeToggler } from './components/theme-toggler/theme-toggler.component';
 import { NewtworkManagerDirective } from './directives/network-manager.directive';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
     declarations: [
@@ -12,6 +13,7 @@ import { NewtworkManagerDirective } from './directives/network-manager.directive
         ThemeToggler,
         NewtworkManagerDirective,
         MessageComponent,
+        CapitalizePipe,
     ],
     imports: [CommonModule, ReactiveFormsModule],
     exports: [
@@ -20,6 +22,7 @@ import { NewtworkManagerDirective } from './directives/network-manager.directive
         NewtworkManagerDirective,
         ReactiveFormsModule,
         MessageComponent,
+        CapitalizePipe,
     ],
     providers: [],
 })

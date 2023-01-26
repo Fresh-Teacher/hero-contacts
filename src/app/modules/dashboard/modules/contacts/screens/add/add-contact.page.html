@@ -149,23 +149,23 @@
         </section>
         <section class="flex mt-2">
             <label class="label text-sm md:text-base lg:text-lg font-semibold">
-                Type :
+                Status :
             </label>
             <div
-                *ngFor="let type of contactsType"
+                *ngFor="let status of statuses"
                 class="flex justify-between items-center m-1"
             >
                 <input
                     type="radio"
-                    [value]="type"
-                    formControlName="type"
+                    [value]="status"
+                    formControlName="status"
                     class="radio inline-block mx-2"
                 />
                 <label
-                    [for]="type"
+                    [for]="status"
                     class="label text-sm md:text-base lg:text-lg font-semibold"
                 >
-                    {{ type }}
+                    {{ status | capitalize }}
                 </label>
             </div>
         </section>

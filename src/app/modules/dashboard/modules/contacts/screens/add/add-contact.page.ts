@@ -1,4 +1,4 @@
-import { Contact, ContactType } from './../../model/contacts.model';
+import { Contact, Contactstatus } from './../../model/contacts.model';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { CommonService } from 'src/app/services/common.service';
@@ -26,7 +26,7 @@ export class AddContactPage implements OnInit {
     addContactForm: FormGroup;
 
     userId: string;
-    contactsType: ContactType[] = ['Home', 'Office'];
+    statuses: Contactstatus[] = ['active', 'inactive'];
     constructor(
         private _common: CommonService,
         private _location: Location,
@@ -56,7 +56,7 @@ export class AddContactPage implements OnInit {
                     ],
                 }),
             ]),
-            type: this._fb.control('Home'),
+            status: this._fb.control('active'),
             description: this._fb.control('', [Validators.required]),
         });
     }

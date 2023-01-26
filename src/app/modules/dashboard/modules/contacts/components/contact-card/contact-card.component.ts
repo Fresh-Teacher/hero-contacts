@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { randomAvatarUrlGenerator } from 'src/app/modules/auth/utils/auth.util';
 import { LayoutService } from 'src/app/modules/dashboard/services/layout.service';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 import { TStoFix } from 'src/app/types/common-types';
+import { Contact } from '../../model/contacts.model';
 
 @Component({
     selector: 'contact-card',
@@ -10,9 +12,9 @@ import { TStoFix } from 'src/app/types/common-types';
     styleUrls: ['./contact-card.component.scss'],
 })
 export class ContactCardComponent {
+    @Input() item: Contact;
     @Output() onCheck = new EventEmitter<{ id: number; isChecked: boolean }>();
     isMultiSelected = false;
-    @Input() ids = 0;
     constructor(private _layout: LayoutService) {
         this._layout.numberOfCardSelected.subscribe((count) => {
             if (count) {

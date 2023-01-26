@@ -13,5 +13,5 @@ const randomNumberGenerator = () => {
 };
 
 export const randomAvatarUrlGenerator = () => {
-    return `https://avatars.dicebear.com/api/big-ears-neutral/${randomNumberGenerator()}.svg`;
+    return `https://robohash.org/${randomNumberGenerator()}/?size=200x280`;
 };

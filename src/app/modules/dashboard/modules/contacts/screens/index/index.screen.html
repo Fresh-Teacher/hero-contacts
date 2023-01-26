@@ -12,12 +12,11 @@
     <hr />
     <section class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 mt-2">
         <ng-container *ngFor="let item of list | async">
-            <!-- <contact-card
+            <contact-card
                 @fade
+                [item]="item"
                 (onCheck)="onCheck($event)"
-                [ids]="item.id"
-            ></contact-card> -->
-            {{item | json}}
+            ></contact-card>
         </ng-container>
     </section>
 </article>

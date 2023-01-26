@@ -1,17 +1,17 @@
 export interface Contact {
-    fullname: string;
+    name: string;
     contacts: ContactsMetaData[];
     photoUrl: string;
     description: string;
 
-    type: ContactType;
+    status: Contactstatus;
     id: string;
 }
 
-export type ContactType = 'Home' | 'Office';
+export type Contactstatus = 'active' | 'inactive';
 
 export interface ContactsMetaData {
-    phoneNumber: number;
+    phone: number;
     email: string;
 }
 

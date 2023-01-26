@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { COLLECTIONS, Contact } from '../model/contacts.model';
 import { enableNetwork } from '@angular/fire/firestore';
 import { ToastService } from 'src/app/services/toaster.service';
+import { randomAvatarUrlGenerator } from 'src/app/modules/auth/utils/auth.util';
 
 @Injectable({
     providedIn: 'root',
@@ -47,10 +48,15 @@ export class ContactService {
             .collection(COLLECTIONS.USERS)
             .doc(`${this.user.uid}`)
             .collection(COLLECTIONS.CONTACTS)
-            .doc('SomedummyId');
+            .doc(id);
     }
 
-    async addContact(contact: Contact) {
-        return await this.generateDocument().set(contact);
+    async addContact(cont: Contact) {
+        const contact = {
+            ...cont,
+            id: Math.random(),
+            photoUrl: randomAvatarUrlGenerator(),
+        };
+        return await this.generateDocument(contact.id + '').set(contact);
     }
 }
