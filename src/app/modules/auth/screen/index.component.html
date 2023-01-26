@@ -40,10 +40,10 @@
                     class="label"
                 >
                     <span class="label-text-alt text-error">
-                        <ng-container *ngIf="name.errors.required">
+                        <ng-container *ngIf="name.errors['required']">
                             Full name is required</ng-container
                         >
-                        <ng-container *ngIf="name.errors.maxlength">
+                        <ng-container *ngIf="name.errors['maxlength']">
                             Full name is Invalid</ng-container
                         >
                     </span>
@@ -69,10 +69,10 @@
                     class="label"
                 >
                     <span class="label-text-alt text-error">
-                        <ng-container *ngIf="email.errors.required">
+                        <ng-container *ngIf="email.errors['required']">
                             Email is required</ng-container
                         >
-                        <ng-container *ngIf="email.errors.email">
+                        <ng-container *ngIf="email.errors['email']">
                             Email is Invalid</ng-container
                         >
                     </span>
@@ -98,10 +98,10 @@
                     class="label"
                 >
                     <span class="label-text-alt text-error">
-                        <ng-container *ngIf="password.errors.required"
+                        <ng-container *ngIf="password.errors['required']"
                             >Password is required</ng-container
                         >
-                        <ng-container *ngIf="password.errors.minlength"
+                        <ng-container *ngIf="password.errors['minlength']"
                             >Password Must be more then 6
                             characters</ng-container
                         >

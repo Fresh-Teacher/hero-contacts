@@ -24,7 +24,6 @@
         "@angular/platform-browser-dynamic": "13.3.0",
         "@angular/router": "13.3.0",
         "@angular/service-worker": "13.3.0",
-        "angular-aria": "^1.8.3",
         "daisyui": "^2.46.1",
         "ngx-toastr": "^14.3.0",
         "rxjs": "~7.5.0",

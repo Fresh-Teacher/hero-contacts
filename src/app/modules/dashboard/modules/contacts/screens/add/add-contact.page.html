@@ -36,7 +36,7 @@
             />
             <section *ngIf="name.errors && name.touched" @fade>
                 <p class="text-xs md:text-sm mt-2 text-error font-semibold">
-                    <ng-container *ngIf="name.errors.required"
+                    <ng-container *ngIf="name.errors['required']"
                         >Name is required</ng-container
                     >
                 </p>
@@ -74,11 +74,11 @@
                                 class="text-xs md:text-sm mt-2 text-error font-semibold"
                             >
                                 <ng-container
-                                    *ngIf="phone.get('phone').errors.required"
+                                    *ngIf="phone.get('phone').errors['required']"
                                     >Phone number is required</ng-container
                                 >
                                 <ng-container
-                                    *ngIf="phone.get('phone').errors.pattern"
+                                    *ngIf="phone.get('phone').errors['pattern']"
                                     >Phone number must of 10
                                     digits</ng-container
                                 >
@@ -107,11 +107,11 @@
                                 class="md:text-sm text-xs mt-2 text-error font-semibold"
                             >
                                 <ng-container
-                                    *ngIf="phone.get('email').errors.required"
+                                    *ngIf="phone.get('email').errors['required']"
                                     >Email is required</ng-container
                                 >
                                 <ng-container
-                                    *ngIf="phone.get('email').errors.pattern"
+                                    *ngIf="phone.get('email').errors['pattern']"
                                     >Email is invalid</ng-container
                                 >
                             </p>
@@ -186,7 +186,7 @@
             ></textarea>
             <section *ngIf="description.errors && description.touched" @fade>
                 <p class="text-xs md:text-sm mt-2 text-error font-semibold">
-                    <ng-container *ngIf="description.errors.required"
+                    <ng-container *ngIf="description.errors['required']"
                         >Description is required</ng-container
                     >
                 </p>
