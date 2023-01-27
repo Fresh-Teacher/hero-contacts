@@ -1,33 +1,45 @@
 import { LayoutService } from 'src/app/modules/dashboard/services/layout.service';
 import { CommonService } from 'src/app/services/common.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastService } from 'src/app/services/toaster.service';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
+
+import { Contact } from '../../model/contacts.model';
+import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { ContactService } from '../../services/contacts.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'contacts-screen',
     templateUrl: './index.screen.html',
     animations: [fadeInOut],
 })
-export class ContactsIndexScreen {
-    list = Array.from({ length: 5 }, (e, id) => ({
-        id,
-        isChecked: false,
-    }));
+export class ContactsIndexScreen implements OnInit, OnDestroy {
+    list: Contact[];
     isMultiSelected!: boolean;
+    subscriptions: Subscription[] = [];
     constructor(
         private _common: CommonService,
         private _layout: LayoutService,
-        private _toastr: ToastService
+        private _toastr: ToastService,
+        private _contactService: ContactService
     ) {
         this._common.setTitle('Contacts - Dashboard');
-        this._layout.numberOfCardSelected.subscribe((count) => {
-            if (count) {
-                this.isMultiSelected = true;
-            } else {
-                this.isMultiSelected = false;
-            }
-        });
+    }
+    async ngOnInit(): Promise<void> {
+        this.subscriptions.push(
+            this._layout.numberOfCardSelected.subscribe((count) => {
+                if (count) {
+                    this.isMultiSelected = true;
+                } else {
+                    this.isMultiSelected = false;
+                }
+            }),
+            this._contactService.contacts.subscribe(
+                (contacts) => (this.list = contacts)
+            )
+        );
+        this._toastr.success('Fetched Contacts Data!!');
     }
 
     addModal(): void {}
@@ -49,5 +61,8 @@ export class ContactsIndexScreen {
         //         (originalLength - afterDelete)
         // );
         // console.log(this._layout.numberOfCardSelected.value);
+    }
+    ngOnDestroy(): void {
+        this.subscriptions.forEach((e) => e.unsubscribe());
     }
 }

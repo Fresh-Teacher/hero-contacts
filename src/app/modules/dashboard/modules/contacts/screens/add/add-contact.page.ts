@@ -1,4 +1,4 @@
-import { ContactType } from './../../model/contacts.model';
+import { Contactstatus } from './../../model/contacts.model';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { CommonService } from 'src/app/services/common.service';
@@ -7,10 +7,11 @@ import {
     FormBuilder,
     FormGroup,
     Validators,
-    FormControl,
     AbstractControl,
 } from '@angular/forms';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
+import { Router } from '@angular/router';
+import { ToastService } from 'src/app/services/toaster.service';
 
 @Component({
     selector: 'add-contact',
@@ -20,12 +21,13 @@ import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 })
 export class AddContactPage {
     addContactForm: FormGroup;
-
-    contactsType: ContactType[] = ['Home', 'Office'];
+    statuses: Contactstatus[] = ['active', 'inactive'];
     constructor(
         private _common: CommonService,
         private _location: Location,
-        private _fb: FormBuilder
+        private _fb: FormBuilder,
+        private _toastr: ToastService,
+        private _router: Router
     ) {
         this._common.setTitle('Add');
         this.addContactForm = this._fb.group({
@@ -37,7 +39,7 @@ export class AddContactPage {
                         [
                             Validators.required,
                             Validators.pattern(
-                                new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')
+                                '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$'
                             ),
                         ],
                     ],
@@ -47,7 +49,7 @@ export class AddContactPage {
                     ],
                 }),
             ]),
-            type: this._fb.control('Home'),
+            status: this._fb.control('active'),
             description: this._fb.control('', [Validators.required]),
         });
     }
@@ -56,9 +58,14 @@ export class AddContactPage {
         return this.addContactForm.get('contacts') as FormArray;
     }
 
-    submit(): void {
-        console.log(this.addContactForm.value);
-        this.addContactForm.reset();
+    async submit(): Promise<void> {
+        try {
+            this._router.navigate(['dashboard/contacts']);
+        } catch (err) {
+            this._toastr.error(err.message);
+        } finally {
+            this.addContactForm.reset();
+        }
     }
 
     addPhone(): void {
@@ -67,9 +74,7 @@ export class AddContactPage {
                 '',
                 [
                     Validators.required,
-                    Validators.pattern(
-                        new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')
-                    ),
+                    Validators.pattern('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$'),
                 ],
             ],
             phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],

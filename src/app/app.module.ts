@@ -11,8 +11,6 @@ import { LogInterceptor } from './modules/shared/interceptors/request.intercepto
 import { NetworkManagerService } from './services/network-manager.service';
 import { SharedModule } from './modules/shared/shared.module';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideAuth, getAuth, GoogleAuthProvider } from '@angular/fire/auth';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AuthService } from './modules/auth/services/auth.service';
@@ -26,8 +24,6 @@ import { AuthService } from './modules/auth/services/auth.service';
         SharedModule,
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideAuth(() => getAuth()),
-        provideFirestore(() => getFirestore()),
-        provideDatabase(() => getDatabase()),
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: true,
             // Register the ServiceWorker as soon as the application is stable
