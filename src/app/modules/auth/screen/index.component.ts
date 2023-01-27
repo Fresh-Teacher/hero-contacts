@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
     AbstractControl,
     FormBuilder,
@@ -6,6 +6,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastService } from 'src/app/services/toaster.service';
 import { fadeInOut } from '../../shared/animations/shared.animations';
@@ -18,8 +19,9 @@ import { AuthService } from '../services/auth.service';
     animations: [fadeInOut],
     providers: [AuthService],
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit, OnDestroy {
     isSignUp = true;
+    subscriptons: Subscription[] = [];
 
     isShown = false;
     authForm = this._fb.group({
@@ -65,18 +67,20 @@ export class IndexComponent implements OnInit {
     }
     signInWithGoogle(): void {
         this.isLoading = true;
-        this._auth.signInWithGoogle().subscribe({
-            next: (value) => {
-                this._router.navigate(['dashboard']);
-                this._toastr.success(`Signed in as ${value.displayName}`);
-                this.isLoading = false;
-            },
-            error: (err) => {
-                this.isLoading = false;
-                this._toastr.error(err.message);
-            },
-            complete: () => {},
-        });
+        this.subscriptons.push(
+            this._auth.signInWithGoogle().subscribe({
+                next: (value) => {
+                    this._router.navigate(['dashboard']);
+                    this._toastr.success(`Signed in as ${value.displayName}`);
+                    this.isLoading = false;
+                },
+                error: (err) => {
+                    this.isLoading = false;
+                    this._toastr.error(err.message);
+                },
+                complete: () => {},
+            })
+        );
     }
 
     async submitForm(): Promise<void> {
@@ -90,19 +94,21 @@ export class IndexComponent implements OnInit {
 
     async signIn(email: string, password: string): Promise<void> {
         this.isLoading = true;
-        this._auth.signIn(email, password).subscribe({
-            next: (value) => {
-                this._router.navigate(['dashboard']);
-                this._toastr.success(`Loggedin Successfully!`);
-                this.authForm.reset();
-                this.isLoading = false;
-            },
-            error: (err) => {
-                this.isLoading = false;
-                this._toastr.error(err.message);
-                this.authForm.reset();
-            },
-        });
+        this.subscriptons.push(
+            this._auth.signIn(email, password).subscribe({
+                next: (value) => {
+                    this._router.navigate(['dashboard']);
+                    this._toastr.success(`Loggedin Successfully!`);
+                    this.authForm.reset();
+                    this.isLoading = false;
+                },
+                error: (err) => {
+                    this.isLoading = false;
+                    this._toastr.error(err.message);
+                    this.authForm.reset();
+                },
+            })
+        );
     }
 
     async signUp(name: string, email: string, password: string): Promise<void> {
@@ -133,6 +139,9 @@ export class IndexComponent implements OnInit {
                 }
             );
         }
+    }
+    ngOnDestroy(): void {
+        this.subscriptons.forEach((subs) => subs.unsubscribe());
     }
 
     ngOnInit(): void {}

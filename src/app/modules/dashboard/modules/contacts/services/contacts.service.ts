@@ -1,62 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { User } from '@angular/fire/auth';
-import {
-    AngularFirestore,
-    AngularFirestoreCollection,
-} from '@angular/fire/compat/firestore';
-import { Firestore } from '@angular/fire/firestore';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { COLLECTIONS, Contact } from '../model/contacts.model';
-import { enableNetwork } from '@angular/fire/firestore';
-import { ToastService } from 'src/app/services/toaster.service';
 import { randomAvatarUrlGenerator } from 'src/app/modules/auth/utils/auth.util';
+import { Contact } from '../model/contacts.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ContactService {
+export class ContactService implements OnDestroy {
     user: User;
+    list: Contact[] = [
+        {
+            id: Math.random() + '',
+            name: 'Let us say I am Dummy',
+            description: ' No nned Description ....',
+            photoUrl: randomAvatarUrlGenerator(),
+            status: 'active',
+            contacts: [
+                {
+                    email: 'TrialEmail@gmail.com',
+                    phone: 9797979797,
+                },
+            ],
+        },
+    ];
 
-    contactsCollection: AngularFirestoreCollection<Contact>;
-    constructor(
-        private _auth: AuthService,
-        private _afs: AngularFirestore,
-        private _afc: Firestore,
-        private _toastr: ToastService
-    ) {
+    contacts: BehaviorSubject<Contact[]> = new BehaviorSubject<Contact[]>(
+        this.list
+    );
+
+    constructor(private _auth: AuthService) {
         this._auth.user.subscribe((user) => (this.user = user));
     }
 
-    getContacts(): Observable<Contact[]> {
-        enableNetwork(this._afc)
-            .then((result) => result as void)
-            .catch((error) => this._toastr.error(error.message));
-
-        this.contactsCollection = this._afs
-            .collection(COLLECTIONS.USERS)
-            .doc(`${this.user.uid}`)
-            .collection(COLLECTIONS.CONTACTS);
-
-        return this.contactsCollection
-            .valueChanges()
-            .pipe(tap((data) => console.log(data)));
-    }
-
-    generateDocument(id?: string) {
-        return this._afs
-            .collection(COLLECTIONS.USERS)
-            .doc(`${this.user.uid}`)
-            .collection(COLLECTIONS.CONTACTS)
-            .doc(id);
-    }
-
-    async addContact(cont: Contact) {
-        const contact = {
-            ...cont,
-            id: Math.random(),
-            photoUrl: randomAvatarUrlGenerator(),
-        };
-        return await this.generateDocument(contact.id + '').set(contact);
+    ngOnDestroy(): void {
+        this._auth.user.unsubscribe();
     }
 }

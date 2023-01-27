@@ -10,8 +10,10 @@
         >
     </section>
     <hr />
-    <section class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 mt-2">
-        <ng-container *ngFor="let item of list | async">
+    <section
+        class="grid grid-cols-1 gap-4 md:gap-8 md:grid-cols-2 xl:grid-cols-3 mt-2"
+    >
+        <ng-container *ngFor="let item of list">
             <contact-card
                 @fade
                 [item]="item"

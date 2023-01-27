@@ -35,6 +35,8 @@
                             "src/styles.scss",
                             "./node_modules/ngx-toastr/toastr.css"
                         ],
+                        "buildOptimizer": true,
+                        "optimization": true,
                         "scripts": [],
                         "serviceWorker": true,
                         "ngswConfigPath": "ngsw-config.json"
@@ -44,8 +46,7 @@
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "500kb",
-                                    "maximumError": "1mb"
+                                    "maximumWarning": "500kb"
                                 },
                                 {
                                     "type": "anyComponentStyle",
@@ -60,12 +61,14 @@
                                 }
                             ],
                             "outputHashing": "all",
+                            "buildOptimizer": true,
+                            "optimization": true,
                             "serviceWorker": true,
                             "ngswConfigPath": "ngsw-config.json"
                         },
                         "development": {
-                            "buildOptimizer": false,
-                            "optimization": false,
+                            "buildOptimizer": true,
+                            "optimization": true,
                             "vendorChunk": true,
                             "extractLicenses": false,
                             "sourceMap": true,
@@ -74,7 +77,7 @@
                             "ngswConfigPath": "ngsw-config.json"
                         }
                     },
-                    "defaultConfiguration": "production"
+                    "defaultConfiguration": "development"
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",

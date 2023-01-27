@@ -1,5 +1,5 @@
-import { Contact, Contactstatus } from './../../model/contacts.model';
-import { Component, OnInit } from '@angular/core';
+import { Contactstatus } from './../../model/contacts.model';
+import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { CommonService } from 'src/app/services/common.service';
 import {
@@ -7,13 +7,10 @@ import {
     FormBuilder,
     FormGroup,
     Validators,
-    FormControl,
     AbstractControl,
 } from '@angular/forms';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { Router } from '@angular/router';
-import { ContactService } from '../../services/contacts.service';
 import { ToastService } from 'src/app/services/toaster.service';
 
 @Component({
@@ -22,19 +19,15 @@ import { ToastService } from 'src/app/services/toaster.service';
     styleUrls: ['./add-contact.page.scss'],
     animations: [fadeInOut],
 })
-export class AddContactPage implements OnInit {
+export class AddContactPage {
     addContactForm: FormGroup;
-
-    userId: string;
     statuses: Contactstatus[] = ['active', 'inactive'];
     constructor(
         private _common: CommonService,
         private _location: Location,
-        private _auth: AuthService,
         private _fb: FormBuilder,
         private _toastr: ToastService,
-        private _router: Router,
-        private _contactService: ContactService
+        private _router: Router
     ) {
         this._common.setTitle('Add');
         this.addContactForm = this._fb.group({
@@ -46,7 +39,7 @@ export class AddContactPage implements OnInit {
                         [
                             Validators.required,
                             Validators.pattern(
-                                new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')
+                                '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$'
                             ),
                         ],
                     ],
@@ -61,21 +54,12 @@ export class AddContactPage implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-        this._auth.user.subscribe(
-            (user) => (this.userId = `${user.email}+${user.uid}`)
-        );
-    }
-
     get contacts(): FormArray {
         return this.addContactForm.get('contacts') as FormArray;
     }
 
     async submit(): Promise<void> {
         try {
-            await this._contactService.addContact(
-                this.addContactForm.value as Contact
-            );
             this._router.navigate(['dashboard/contacts']);
         } catch (err) {
             this._toastr.error(err.message);
@@ -90,9 +74,7 @@ export class AddContactPage implements OnInit {
                 '',
                 [
                     Validators.required,
-                    Validators.pattern(
-                        new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')
-                    ),
+                    Validators.pattern('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$'),
                 ],
             ],
             phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
