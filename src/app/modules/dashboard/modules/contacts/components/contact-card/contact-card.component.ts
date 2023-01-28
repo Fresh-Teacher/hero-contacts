@@ -5,8 +5,10 @@ import {
     OnDestroy,
     Output,
 } from '@angular/core';
+import { User } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { LayoutService } from 'src/app/modules/dashboard/services/layout.service';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 import { TStoFix } from 'src/app/types/common-types';
@@ -20,6 +22,7 @@ import { ContactService } from '../../services/contacts.service';
     styleUrls: ['./contact-card.component.scss'],
 })
 export class ContactCardComponent implements OnDestroy {
+    user: User;
     @Input() item: Contact;
     @Output() onCheck = new EventEmitter<{ id: number; isChecked: boolean }>();
     subsriptions: Subscription[] = [];
@@ -28,7 +31,8 @@ export class ContactCardComponent implements OnDestroy {
         private _layout: LayoutService,
         private _contactSer: ContactService,
         private _router: Router,
-        private _route: ActivatedRoute
+        private _route: ActivatedRoute,
+        private _auth: AuthService
     ) {
         this.subsriptions.push(
             this._layout.numberOfCardSelected.subscribe((count) => {
@@ -37,7 +41,8 @@ export class ContactCardComponent implements OnDestroy {
                 } else {
                     this.isMultiSelected = false;
                 }
-            })
+            }),
+            this._auth.user.subscribe((user) => (this.user = user))
         );
     }
 
@@ -59,6 +64,7 @@ export class ContactCardComponent implements OnDestroy {
     detailed(id: string) {
         this._router.navigate(['view'], {
             queryParams: {
+                user: this.user.uid,
                 id,
             },
             relativeTo: this._route,

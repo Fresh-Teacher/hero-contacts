@@ -1,1 +1,15 @@
-<h1>Detailed Contact Screen</h1>
+<article class="p-4">
+    <section class="flex item gap-4 items-center md:px-2 md:pb-4 px-1 pb-2">
+        <p
+            class="text-3xl cursor-pointer tooltip tooltip-bottom"
+            data-tip="Back"
+            (click)="back()"
+        >
+            <
+        </p>
+        <h1 class="text-xl text-center md:text-2xl lg:text-3xl font-bold">
+            {{contact.name}}
+        </h1>
+    </section>
+    <hr />
+</article>

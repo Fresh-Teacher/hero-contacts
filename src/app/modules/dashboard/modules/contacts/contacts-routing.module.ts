@@ -1,3 +1,4 @@
+import { DetailedContactDataResolver } from './resolver/detailed-contact.resolver';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ContactsIndexScreen } from './screens/index/index.screen';
@@ -17,6 +18,9 @@ const routes: Routes = [
     {
         path: 'view',
         component: DetailedContactScreen,
+        resolve: {
+            contact: DetailedContactDataResolver,
+        },
     },
 ];
 
