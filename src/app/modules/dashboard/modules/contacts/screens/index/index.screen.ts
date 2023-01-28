@@ -5,9 +5,8 @@ import { ToastService } from 'src/app/services/toaster.service';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 
 import { Contact } from '../../model/contacts.model';
-import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { ContactService } from '../../services/contacts.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
     selector: 'contacts-screen',
@@ -15,7 +14,7 @@ import { Subscription } from 'rxjs';
     animations: [fadeInOut],
 })
 export class ContactsIndexScreen implements OnInit, OnDestroy {
-    list: Contact[];
+    list: Observable<Contact[]>;
     isMultiSelected!: boolean;
     subscriptions: Subscription[] = [];
     constructor(
@@ -27,6 +26,8 @@ export class ContactsIndexScreen implements OnInit, OnDestroy {
         this._common.setTitle('Contacts - Dashboard');
     }
     async ngOnInit(): Promise<void> {
+        this.list = this._contactService.getContacts();
+
         this.subscriptions.push(
             this._layout.numberOfCardSelected.subscribe((count) => {
                 if (count) {
@@ -34,10 +35,7 @@ export class ContactsIndexScreen implements OnInit, OnDestroy {
                 } else {
                     this.isMultiSelected = false;
                 }
-            }),
-            this._contactService.contacts.subscribe(
-                (contacts) => (this.list = contacts)
-            )
+            })
         );
         this._toastr.success('Fetched Contacts Data!!');
     }

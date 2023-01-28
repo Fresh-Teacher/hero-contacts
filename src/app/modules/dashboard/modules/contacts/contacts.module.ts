@@ -7,6 +7,7 @@ import { ContactsRoutingModule } from './contacts-routing.module';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { AddContactPage } from './screens/add/add-contact.page';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ContactService } from './services/contacts.service';
 
 @NgModule({
     declarations: [

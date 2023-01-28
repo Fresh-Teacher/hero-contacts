@@ -1,40 +1,47 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User } from '@angular/fire/auth';
-import { BehaviorSubject } from 'rxjs';
+import {
+    AngularFirestore,
+    AngularFirestoreCollection,
+} from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { randomAvatarUrlGenerator } from 'src/app/modules/auth/utils/auth.util';
 import { Contact } from '../model/contacts.model';
+import { Firestore, doc, deleteDoc, setDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ContactService implements OnDestroy {
+export class ContactService {
     user: User;
-    list: Contact[] = [
-        {
-            id: Math.random() + '',
-            name: 'Let us say I am Dummy',
-            description: ' No nned Description ....',
-            photoUrl: randomAvatarUrlGenerator(),
-            status: 'active',
-            contacts: [
-                {
-                    email: 'TrialEmail@gmail.com',
-                    phone: 9797979797,
-                },
-            ],
-        },
-    ];
-
-    contacts: BehaviorSubject<Contact[]> = new BehaviorSubject<Contact[]>(
-        this.list
-    );
-
-    constructor(private _auth: AuthService) {
+    list: AngularFirestoreCollection<Contact>;
+    constructor(
+        private _auth: AuthService,
+        private _afc: AngularFirestore,
+        private _fire: Firestore
+    ) {
         this._auth.user.subscribe((user) => (this.user = user));
     }
 
-    ngOnDestroy(): void {
-        this._auth.user.unsubscribe();
+    getContacts(): Observable<Contact[]> {
+        this.list = this._afc.collection(`${this.user.uid}`, (ref) => {
+            return ref.orderBy('name', 'asc');
+        });
+        return this.list.valueChanges();
+    }
+    async addContact(data: Contact): Promise<void> {
+        await setDoc(doc(this._fire, `${this.user.uid}`, `${data.id}`), data);
+    }
+
+    async deleteMultiple(ids: string[]): Promise<void> {
+        Promise.all(
+            ids.map((id) =>
+                deleteDoc(doc(this._fire, `${this.user.uid}`, `${id}`))
+            )
+        );
+    }
+
+    async deleteContact(id: string): Promise<void> {
+        await deleteDoc(doc(this._fire, `${this.user.uid}`, `${id}`));
     }
 }

@@ -1,3 +1,4 @@
+import { ContactService } from './../../services/contacts.service';
 import { Contactstatus } from './../../model/contacts.model';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
@@ -12,6 +13,7 @@ import {
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toaster.service';
+import { randomAvatarUrlGenerator } from 'src/app/modules/auth/utils/auth.util';
 
 @Component({
     selector: 'add-contact',
@@ -27,7 +29,8 @@ export class AddContactPage {
         private _location: Location,
         private _fb: FormBuilder,
         private _toastr: ToastService,
-        private _router: Router
+        private _router: Router,
+        private _conatctSer: ContactService
     ) {
         this._common.setTitle('Add');
         this.addContactForm = this._fb.group({
@@ -61,6 +64,12 @@ export class AddContactPage {
     async submit(): Promise<void> {
         try {
             this._router.navigate(['dashboard/contacts']);
+            const data = {
+                id: Math.random(),
+                photoUrl: randomAvatarUrlGenerator(),
+                ...this.addContactForm.value,
+            };
+            this._conatctSer.addContact(data);
         } catch (err) {
             this._toastr.error(err.message);
         } finally {

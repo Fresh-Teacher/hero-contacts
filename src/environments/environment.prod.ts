@@ -9,4 +9,5 @@ export const environment = {
         appId: '1:1043363699054:web:e75d618c3feb5774f8497f',
         measurementId: 'G-F05GS6496C',
     },
+    backend_url: 'https://hero-contacts-fd5e5-default-rtdb.firebaseio.com/',
 };

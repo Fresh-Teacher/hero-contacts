@@ -45,7 +45,12 @@
         </p>
         <div @fade *ngIf="!isMultiSelected" class="card-actions justify-end">
             <button class="btn btn-sm lg:btn-md btn-primary">Edit</button>
-            <button class="btn btn-sm lg:btn-md btn-error">Delete</button>
+            <button
+                class="btn btn-sm lg:btn-md btn-error"
+                (click)="delete(item.id)"
+            >
+                Delete
+            </button>
         </div>
     </div>
 </div>
