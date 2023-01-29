@@ -17,7 +17,8 @@
 
             <input
                 type="checkbox"
-                (change)="onMultiSelect($event)"
+                [value]="item.id"
+                (click)="onMultiSelect($event)"
                 data-tip="Select multiple to delete!"
                 class="checkbox checkbox-xs md:checkbox-md tooltip tooltip-left"
             />
@@ -46,7 +47,7 @@
         <div @fade *ngIf="!isMultiSelected" class="card-actions justify-end">
             <button
                 class="btn btn-sm lg:btn-md btn-primary"
-                (click)="edit(item.id)"
+                (click)="edit(item.id, $event)"
             >
                 Edit
             </button>

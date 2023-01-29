@@ -1,6 +1,10 @@
 import { ContactService } from './../../services/contacts.service';
-import { Contactstatus } from './../../model/contacts.model';
-import { Component } from '@angular/core';
+import {
+    Contactstatus,
+    ContactsQueryParams,
+    Contact,
+} from './../../model/contacts.model';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { CommonService } from 'src/app/services/common.service';
 import {
@@ -11,7 +15,7 @@ import {
     AbstractControl,
 } from '@angular/forms';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastService } from 'src/app/services/toaster.service';
 import { randomAvatarUrlGenerator } from 'src/app/modules/auth/utils/auth.util';
 
@@ -21,7 +25,7 @@ import { randomAvatarUrlGenerator } from 'src/app/modules/auth/utils/auth.util';
     styleUrls: ['./add-contact.page.scss'],
     animations: [fadeInOut],
 })
-export class AddContactPage {
+export class AddContactPage implements OnInit {
     addContactForm: FormGroup;
     statuses: Contactstatus[] = ['active', 'inactive'];
     constructor(
@@ -30,6 +34,7 @@ export class AddContactPage {
         private _fb: FormBuilder,
         private _toastr: ToastService,
         private _router: Router,
+        private _route: ActivatedRoute,
         private _conatctSer: ContactService
     ) {
         this._common.setTitle('Add');
@@ -54,7 +59,30 @@ export class AddContactPage {
             ]),
             status: this._fb.control('active'),
             description: this._fb.control('', [Validators.required]),
+            id: Math.random(),
+            photoUrl: randomAvatarUrlGenerator(),
         });
+    }
+    ngOnInit(): void {
+        console.log(this._route.snapshot.queryParams);
+        if (
+            this._route.snapshot.queryParams[ContactsQueryParams.MODE] ===
+            ContactsQueryParams.EDIT
+        ) {
+            const data: Contact = this._route.snapshot.data['formData'];
+            console.log(data);
+            this.addContactForm.setValue({
+                id: data.id,
+                photoUrl: data.photoUrl,
+                name: data.name,
+                contacts: data.contacts.map((e) => ({
+                    email: e.email,
+                    phone: e.phone,
+                })),
+                status: data.status,
+                description: data.description,
+            });
+        }
     }
 
     get contacts(): FormArray {
@@ -63,16 +91,28 @@ export class AddContactPage {
 
     async submit(): Promise<void> {
         try {
-            this._router.navigate(['dashboard/contacts']);
-            const data = {
-                id: Math.random(),
-                photoUrl: randomAvatarUrlGenerator(),
-                ...this.addContactForm.value,
-            };
-            this._conatctSer.addContact(data);
+            if (
+                this._route.snapshot.queryParams[ContactsQueryParams.MODE] ===
+                ContactsQueryParams.EDIT
+            ) {
+                console.log(this.addContactForm.value);
+                await this._conatctSer.updateContact(
+                    this.addContactForm.value.id,
+                    this.addContactForm.value
+                );
+            } else {
+                const data = {
+                    id: Math.random(),
+                    photoUrl: randomAvatarUrlGenerator(),
+                    ...this.addContactForm.value,
+                };
+                this._conatctSer.addContact(data);
+            }
         } catch (err) {
+            console.error(err);
             this._toastr.error(err.message);
         } finally {
+            this._router.navigate(['dashboard/contacts']);
             this.addContactForm.reset();
         }
     }

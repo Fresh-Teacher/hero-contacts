@@ -6,7 +6,14 @@ import {
 } from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { Contact } from '../model/contacts.model';
-import { Firestore, doc, deleteDoc, setDoc } from '@angular/fire/firestore';
+import {
+    Firestore,
+    doc,
+    deleteDoc,
+    setDoc,
+    updateDoc,
+    DocumentData,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -33,12 +40,21 @@ export class ContactService {
         await setDoc(doc(this._fire, `${this.user.uid}`, `${data.id}`), data);
     }
 
-    async deleteMultiple(ids: string[]): Promise<void> {
-        Promise.all(
-            ids.map((id) =>
-                deleteDoc(doc(this._fire, `${this.user.uid}`, `${id}`))
-            )
+    async updateContact(id: string, data: Contact): Promise<void> {
+        await updateDoc(
+            doc(this._fire, `${this.user.uid}`, `${id}`),
+            data as DocumentData
         );
+    }
+    async deleteMultiple(ids: string[]): Promise<void> {
+        this.list = this._afc.collection(`${this.user.uid}`);
+        const batch = this._afc.firestore.batch();
+        ids.forEach((id) => {
+            const docRef = this.list.doc(id).ref;
+            batch.delete(docRef);
+        });
+
+        await batch.commit();
     }
 
     async deleteContact(id: string): Promise<void> {

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ContactsIndexScreen } from './screens/index/index.screen';
 import { DetailedContactScreen } from './screens/detailed-contact/detailed-contact';
 import { AddContactPage } from './screens/add/add-contact.page';
+import { ContactFormResolver } from './resolver/contact-form.resolver';
 
 const routes: Routes = [
     {
@@ -14,6 +15,9 @@ const routes: Routes = [
     {
         path: 'add',
         component: AddContactPage,
+        resolve: {
+            formData: ContactFormResolver,
+        },
     },
     {
         path: 'view',

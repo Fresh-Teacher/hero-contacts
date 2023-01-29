@@ -12,6 +12,8 @@ export enum ContactsQueryParams {
     MODE = 'mode',
     ADD = 'add',
     EDIT = 'edit',
+    ID = 'id',
+    user = 'user',
 }
 
 export type Contactstatus = 'active' | 'inactive';
