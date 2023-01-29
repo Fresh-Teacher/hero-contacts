@@ -1,3 +1,4 @@
+import { ContactsQueryParams } from './../../model/contacts.model';
 import {
     Component,
     EventEmitter,
@@ -47,6 +48,7 @@ export class ContactCardComponent implements OnDestroy {
     }
 
     onMultiSelect(event: TStoFix): void {
+        event.stopPropagation();
         if (event.target.checked) {
             this._layout.numberOfCardSelected.next(
                 this._layout.numberOfCardSelected.value + 1
@@ -61,7 +63,8 @@ export class ContactCardComponent implements OnDestroy {
             isChecked: Boolean(event.target.checked),
         });
     }
-    detailed(id: string) {
+    detailed(id: string, event: Event) {
+        event.stopPropagation();
         this._router.navigate(['view'], {
             queryParams: {
                 user: this.user.uid,
@@ -71,7 +74,19 @@ export class ContactCardComponent implements OnDestroy {
         });
     }
 
-    async delete(id: string): Promise<void> {
+    edit(id: string) {
+        this._router.navigate(['add'], {
+            relativeTo: this._route,
+            queryParams: {
+                [ContactsQueryParams.MODE]: ContactsQueryParams.EDIT,
+                user: this.user.uid,
+                id,
+            },
+        });
+    }
+
+    async delete(id: string, event: Event): Promise<void> {
+        event.stopPropagation();
         await this._contactSer.deleteContact(id);
     }
     ngOnDestroy(): void {

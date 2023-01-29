@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailedContactScreen implements OnInit {
     contact: Contact;
-    constructor(private _route: ActivatedRoute, private _loc: Location) {}
+    constructor(public _route: ActivatedRoute, private _loc: Location) {}
 
     async ngOnInit(): Promise<void> {
         this.contact = this._route.snapshot.data['contact'];

@@ -37,7 +37,6 @@ export class ContactsIndexScreen implements OnInit, OnDestroy {
                 }
             })
         );
-        this._toastr.success('Fetched Contacts Data!!');
     }
 
     addModal(): void {}
