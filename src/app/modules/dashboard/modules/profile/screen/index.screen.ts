@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { NetworkManagerService } from 'src/app/services/network-manager.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { ToastService } from 'src/app/services/toaster.service';
-
+import { User } from '@angular/fire/auth';
 @Component({
     selector: 'profile',
     templateUrl: './index.screen.html',
 })
 export class IndexProfileScreen {
-    constructor(
-        private _toastr: ToastService,
-        private _network: NetworkManagerService
-    ) {}
+    user: User;
+    constructor(private _toastr: ToastService, private _auth: AuthService) {
+        this._auth.user.subscribe((user) => (this.user = user));
+    }
 }
