@@ -1,9 +1,9 @@
-import { ContactService } from './../../services/contacts.service';
+import { ContactService } from '../../services/contacts.service';
 import {
     Contactstatus,
     ContactsQueryParams,
     Contact,
-} from './../../model/contacts.model';
+} from '../../model/contacts.model';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { CommonService } from 'src/app/services/common.service';
@@ -21,13 +21,14 @@ import { randomAvatarUrlGenerator } from 'src/app/modules/auth/utils/auth.util';
 
 @Component({
     selector: 'add-contact',
-    templateUrl: './add-contact.page.html',
-    styleUrls: ['./add-contact.page.scss'],
+    templateUrl: './form.component.html',
+    styleUrls: ['./form.component.scss'],
     animations: [fadeInOut],
 })
-export class AddContactPage implements OnInit {
+export class ContactFormPage implements OnInit {
     addContactForm: FormGroup;
     statuses: Contactstatus[] = ['active', 'inactive'];
+    mode: string;
     constructor(
         private _common: CommonService,
         private _location: Location,
@@ -38,6 +39,7 @@ export class AddContactPage implements OnInit {
         private _conatctSer: ContactService
     ) {
         this._common.setTitle('Add');
+        this.mode = this._route.snapshot.queryParams[ContactsQueryParams.MODE];
         this.addContactForm = this._fb.group({
             name: this._fb.control('', [Validators.required]),
             contacts: this._fb.array([

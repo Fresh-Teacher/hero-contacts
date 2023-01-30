@@ -25,11 +25,11 @@ import { ContactService } from '../../services/contacts.service';
 export class ContactCardComponent implements OnDestroy {
     user: User;
     @Input() item: Contact;
-    @Output() onCheck = new EventEmitter<{ id: number; isChecked: boolean }>();
+    @Output() onCheck = new EventEmitter<string[]>();
     subsriptions: Subscription[] = [];
 
     isMultiSelected = false;
-    selectedIds: number[] = [];
+    selectedIds: string[] = [];
     constructor(
         private _layout: LayoutService,
         private _contactSer: ContactService,
@@ -50,6 +50,7 @@ export class ContactCardComponent implements OnDestroy {
     }
 
     onMultiSelect(event: TStoFix): void {
+        console.log(event);
         event.stopPropagation();
         const id = event.target.value;
         if (event.target.checked) {
@@ -68,10 +69,7 @@ export class ContactCardComponent implements OnDestroy {
                 this._layout.numberOfCardSelected.value - 1
             );
         }
-        this.onCheck.emit({
-            id: +event.target.value,
-            isChecked: Boolean(event.target.checked),
-        });
+        this.onCheck.emit([...this.selectedIds]);
     }
     detailed(id: string, event: Event) {
         event.stopPropagation();
@@ -87,13 +85,14 @@ export class ContactCardComponent implements OnDestroy {
     edit(id: string, event: Event) {
         event.stopPropagation();
         console.log('Route');
-        this._router.navigate(['add'], {
+        this._router.navigate(['details'], {
             relativeTo: this._route,
             queryParams: {
                 [ContactsQueryParams.MODE]: ContactsQueryParams.EDIT,
                 user: this.user.uid,
                 id,
             },
+            queryParamsHandling: 'merge',
         });
     }
 

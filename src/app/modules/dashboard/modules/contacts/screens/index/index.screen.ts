@@ -2,7 +2,11 @@ import { LayoutService } from 'src/app/modules/dashboard/services/layout.service
 import { CommonService } from 'src/app/services/common.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastService } from 'src/app/services/toaster.service';
-import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
+import {
+    fadeInOut,
+    fade,
+    staggedIn,
+} from 'src/app/modules/shared/animations/shared.animations';
 
 import { Contact } from '../../model/contacts.model';
 import { ContactService } from '../../services/contacts.service';
@@ -11,7 +15,7 @@ import { Observable, Subscription } from 'rxjs';
 @Component({
     selector: 'contacts-screen',
     templateUrl: './index.screen.html',
-    animations: [fadeInOut],
+    animations: [fadeInOut, fade, staggedIn],
 })
 export class ContactsIndexScreen implements OnInit, OnDestroy {
     list: Observable<Contact[]>;
@@ -39,26 +43,14 @@ export class ContactsIndexScreen implements OnInit, OnDestroy {
         );
     }
 
-    addModal(): void {}
-
-    onCheck({ id, isChecked }: { id: number; isChecked: boolean }): void {
-        // console.log(id, isChecked);
-        // const clickedItem = this.list[id];
-        // clickedItem.isChecked = isChecked;
-        // console.log(this.list);
+    async onCheck(ids: string[]): Promise<void> {
+        // try {
+        //     this._contactService.deleteMultiple(ids);
+        // } catch (err) {
+        //     this._toastr.error(`Unable to Delete ${ids.length} Contacts!!`);
+        // }
     }
 
-    onMultipleDelete(): void {
-        // const originalLength = this.list.length;
-        // this.list = this.list.filter((e) => !e.isChecked);
-        // console.log(this.list);
-        // const afterDelete = this.list.length;
-        // this._layout.numberOfCardSelected.next(
-        //     this._layout.numberOfCardSelected.value -
-        //         (originalLength - afterDelete)
-        // );
-        // console.log(this._layout.numberOfCardSelected.value);
-    }
     ngOnDestroy(): void {
         this.subscriptions.forEach((e) => e.unsubscribe());
     }

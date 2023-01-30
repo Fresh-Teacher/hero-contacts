@@ -5,7 +5,10 @@
         <h1 class="text-xl text-center md:text-2xl lg:text-3xl font-bold">
             Contacts
         </h1>
-        <a routerLink="/dashboard/contacts/add" class="btn btn-sm lg:btn-md"
+        <a
+            routerLink="/dashboard/contacts/details"
+            [queryParams]="{ mode : 'add'}"
+            class="btn btn-sm lg:btn-md"
             >Add</a
         >
     </section>
@@ -15,7 +18,7 @@
     >
         <ng-container *ngFor="let item of list | async">
             <contact-card
-                @fade
+                @fadeIn
                 [item]="item"
                 (onCheck)="onCheck($event)"
             ></contact-card>
