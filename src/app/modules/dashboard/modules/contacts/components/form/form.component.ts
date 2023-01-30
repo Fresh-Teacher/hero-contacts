@@ -66,13 +66,11 @@ export class ContactFormPage implements OnInit {
         });
     }
     ngOnInit(): void {
-        console.log(this._route.snapshot.queryParams);
         if (
             this._route.snapshot.queryParams[ContactsQueryParams.MODE] ===
             ContactsQueryParams.EDIT
         ) {
             const data: Contact = this._route.snapshot.data['formData'];
-            console.log(data);
             this.addContactForm.setValue({
                 id: data.id,
                 photoUrl: data.photoUrl,
@@ -97,7 +95,6 @@ export class ContactFormPage implements OnInit {
                 this._route.snapshot.queryParams[ContactsQueryParams.MODE] ===
                 ContactsQueryParams.EDIT
             ) {
-                console.log(this.addContactForm.value);
                 await this._conatctSer.updateContact(
                     this.addContactForm.value.id,
                     this.addContactForm.value

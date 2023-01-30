@@ -50,7 +50,6 @@ export class ContactCardComponent implements OnDestroy {
     }
 
     onMultiSelect(event: TStoFix): void {
-        console.log(event);
         event.stopPropagation();
         const id = event.target.value;
         if (event.target.checked) {
@@ -84,7 +83,6 @@ export class ContactCardComponent implements OnDestroy {
 
     edit(id: string, event: Event) {
         event.stopPropagation();
-        console.log('Route');
         this._router.navigate(['details'], {
             relativeTo: this._route,
             queryParams: {
