@@ -1,1 +1,74 @@
-<h1>Detailed Contact Screen</h1>
+<article class="p-4">
+    <section class="flex item gap-4 items-center md:px-2 md:pb-4 px-1 pb-2">
+        <p
+            class="text-3xl cursor-pointer tooltip tooltip-bottom"
+            data-tip="Back"
+            (click)="back()"
+        >
+            <
+        </p>
+        <h1 class="text-lg text-center md:text-2xl lg:text-3xl font-bold">
+            {{contact.name | uppercase}}
+        </h1>
+    </section>
+    <hr />
+    <section
+        class="grid grid-cols-1 gap-2 md:gap-4 mt-4 grid-rows-1 mx-auto w-[90%] max-w-4xl"
+    >
+        <section
+            class="grid place-items-center gap-3 md:gap-4 grid-cols-1 sm:grid-cols-[0.4fr_1fr]"
+        >
+            <div class="avatar">
+                <div
+                    class="xl:w-44 w-20 md:w-28 lg:w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+                >
+                    <img [src]="contact.photoUrl" alt="avatar" />
+                </div>
+            </div>
+
+            <p
+                class="xl:text-5xl lg:text-4xl text-gray-700 md:text-4xl sm:text-3xl font-extrabold"
+            >
+                {{ contact.name | uppercase}}
+            </p>
+        </section>
+        <section>
+            <div
+                data-tip="Swipe for more!"
+                class="w-full"
+                [ngClass]="'tooltip tooltip-bottom'"
+            >
+                <div class="carousel w-full bg-base-300 rounded-md">
+                    <ng-container
+                        *ngFor="let item of contact.contacts; let i = index"
+                    >
+                        <div
+                            [id]="'item' + (i + 1)"
+                            class="carousel-item w-full"
+                        >
+                            <article class="w-full p-1 md:p-3">
+                                <p
+                                    class="text-gray-700 xl:text-3xl lg:text-2xl md:text-xl sm:text-base font-semibold"
+                                >
+                                    Email : {{item.email}}
+                                </p>
+                                <p
+                                    class="text-gray-700 xl:text-3xl lg:text-2xl md:text-xl sm:text-base font-semibold"
+                                >
+                                    Phone : {{item.phone}}
+                                </p>
+                            </article>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </section>
+        <section id="description" class="bg-base-200 text-gray-700">
+            <p
+                class="text-gray-700 rounded-md xl:text-3xl lg:text-2xl md:text-xl sm:text-base font-normal"
+            >
+                {{contact.description }}
+            </p>
+        </section>
+    </section>
+</article>

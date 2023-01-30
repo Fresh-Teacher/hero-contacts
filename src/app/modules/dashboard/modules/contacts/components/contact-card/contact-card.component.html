@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container" (click)="detailed(item.id, $event)">
     <figure data-tip="Avatar" class="tooltip tooltip-bottom w-32 sm:w-auto">
         <img
             class="object-cover brightness-75"
@@ -17,7 +17,8 @@
 
             <input
                 type="checkbox"
-                (change)="onMultiSelect($event)"
+                [value]="item.id"
+                (click)="onMultiSelect($event)"
                 data-tip="Select multiple to delete!"
                 class="checkbox checkbox-xs md:checkbox-md tooltip tooltip-left"
             />
@@ -44,8 +45,18 @@
             >
         </p>
         <div @fade *ngIf="!isMultiSelected" class="card-actions justify-end">
-            <button class="btn btn-sm lg:btn-md btn-primary">Edit</button>
-            <button class="btn btn-sm lg:btn-md btn-error">Delete</button>
+            <button
+                class="btn btn-sm lg:btn-md btn-primary"
+                (click)="edit(item.id, $event)"
+            >
+                Edit
+            </button>
+            <button
+                class="btn btn-sm lg:btn-md btn-error"
+                (click)="delete(item.id, $event)"
+            >
+                Delete
+            </button>
         </div>
     </div>
 </div>

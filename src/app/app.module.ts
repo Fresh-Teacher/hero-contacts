@@ -14,6 +14,8 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth, GoogleAuthProvider } from '@angular/fire/auth';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AuthService } from './modules/auth/services/auth.service';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
     declarations: [AppComponent],
@@ -24,6 +26,8 @@ import { AuthService } from './modules/auth/services/auth.service';
         SharedModule,
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideAuth(() => getAuth()),
+        provideFirestore(() => getFirestore()),
+        AngularFirestoreModule.enablePersistence(),
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: true,
             // Register the ServiceWorker as soon as the application is stable

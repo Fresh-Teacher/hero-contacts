@@ -1,17 +1,15 @@
 <article class="p-4">
-    <section
-        class="flex item justify-between items-center lg:px-2 lg:pb-4 px-1 pb-2"
-    >
-        <h1 class="text-xl text-center md:text-2xl lg:text-3xl font-bold">
-            Add Contact
-        </h1>
-        <button
+    <section class="flex item gap-4 items-center lg:px-2 lg:pb-4 px-1 pb-2">
+        <p
+            class="text-3xl cursor-pointer tooltip tooltip-bottom"
+            data-tip="Back"
             (click)="back()"
-            data-tip="Back to Contacts"
-            class="btn btn-sm lg:btn-md tooltip tooltip-left"
         >
-            Back
-        </button>
+            <
+        </p>
+        <h1 class="text-xl text-center md:text-2xl lg:text-3xl font-bold">
+            {{ mode | capitalize }} Contact
+        </h1>
     </section>
     <hr />
 

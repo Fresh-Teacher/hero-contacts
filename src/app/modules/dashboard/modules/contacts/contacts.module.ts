@@ -5,7 +5,7 @@ import { DetailedContactScreen } from './screens/detailed-contact/detailed-conta
 import { ContactsIndexScreen } from './screens/index/index.screen';
 import { ContactsRoutingModule } from './contacts-routing.module';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
-import { AddContactPage } from './screens/add/add-contact.page';
+import { ContactFormPage } from './components/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         ContactCardComponent,
         ContactsIndexScreen,
         DetailedContactScreen,
-        AddContactPage,
+        ContactFormPage,
     ],
     imports: [
         ContactsRoutingModule,
