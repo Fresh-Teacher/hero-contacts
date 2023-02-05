@@ -15,7 +15,6 @@ export class DashboardScreen implements OnDestroy {
     subscriptions: Subscription[] = [];
     loggedInUser: User;
     profilePic: string;
-    routerSubsciption: Subscription;
     contentLoaded: boolean;
 
     constructor(
@@ -35,12 +34,12 @@ export class DashboardScreen implements OnDestroy {
                     this.isTablet = false;
                 }
             }),
-            (this.routerSubsciption = this._router.events.subscribe((event) => {
+            this._router.events.subscribe((event) => {
                 if (event instanceof NavigationStart)
                     this.contentLoaded = false;
                 else if (event instanceof NavigationEnd)
                     this.contentLoaded = true;
-            }))
+            })
         );
         const theme = localStorage.getItem(COMMONENUM.THEME) as Theme;
         if (theme) {
