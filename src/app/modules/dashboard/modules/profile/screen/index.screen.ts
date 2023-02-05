@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { updateProfile, User } from '@angular/fire/auth';
 import {
@@ -7,12 +7,14 @@ import {
 } from '@angular/fire/compat/storage';
 import { TStoFix } from 'src/app/types/common-types';
 import { ToastService } from 'src/app/services/toaster.service';
+import { Subscription } from 'rxjs';
 @Component({
     selector: 'profile',
     templateUrl: './index.screen.html',
 })
-export class IndexProfileScreen {
+export class IndexProfileScreen implements OnDestroy {
     task: AngularFireUploadTask;
+    suscriptions: Subscription[] = [];
 
     percentage: number;
     user: User;
@@ -22,7 +24,9 @@ export class IndexProfileScreen {
         private _fireStorage: AngularFireStorage,
         private _toastr: ToastService
     ) {
-        this._auth.user.subscribe((user) => (this.user = user));
+        this.suscriptions.push(
+            this._auth.user.subscribe((user) => (this.user = user))
+        );
     }
     async uploadprofile(event: TStoFix) {
         try {
@@ -44,5 +48,9 @@ export class IndexProfileScreen {
             console.error(err);
             this._toastr.error('Unable to update profile!');
         }
+    }
+
+    ngOnDestroy(): void {
+        this.suscriptions.forEach((sub) => sub.unsubscribe());
     }
 }

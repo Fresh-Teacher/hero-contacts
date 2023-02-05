@@ -98,7 +98,9 @@
             </section>
         </section>
         <!-- Page content here -->
-        <router-outlet></router-outlet>
+        <ng-container *ngIf="contentLoaded; else loader">
+            <router-outlet></router-outlet>
+        </ng-container>
     </article>
     <article class="drawer-side">
         <label for="my-drawer-3" class="drawer-overlay text-base-100"></label>
@@ -127,3 +129,9 @@
         </ul>
     </article>
 </main>
+
+<ng-template #loader>
+    <section class="h-[92vh] flex justify-center items-center">
+        <progress class="progress progress-primary w-56"></progress>
+    </section>
+</ng-template>

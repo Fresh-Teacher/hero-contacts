@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { COMMONENUM, Theme } from 'src/app/types/common-types';
 import { Subscription } from 'rxjs';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
     selector: 'dashboard-screeen',
@@ -14,8 +15,14 @@ export class DashboardScreen implements OnDestroy {
     subscriptions: Subscription[] = [];
     loggedInUser: User;
     profilePic: string;
+    routerSubsciption: Subscription;
+    contentLoaded: boolean;
 
-    constructor(private _common: CommonService, private _auth: AuthService) {
+    constructor(
+        private _common: CommonService,
+        private _auth: AuthService,
+        private _router: Router
+    ) {
         this._common.setTitle('Dashboard');
         this.subscriptions.push(
             this._auth.user.subscribe((user) => {
@@ -27,7 +34,13 @@ export class DashboardScreen implements OnDestroy {
                 } else {
                     this.isTablet = false;
                 }
-            })
+            }),
+            (this.routerSubsciption = this._router.events.subscribe((event) => {
+                if (event instanceof NavigationStart)
+                    this.contentLoaded = false;
+                else if (event instanceof NavigationEnd)
+                    this.contentLoaded = true;
+            }))
         );
         const theme = localStorage.getItem(COMMONENUM.THEME) as Theme;
         if (theme) {

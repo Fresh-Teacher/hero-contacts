@@ -1,27 +1,34 @@
-<article class="p-4">
-    <section
-        class="flex item justify-between items-center md:px-2 md:pb-4 px-1 pb-2"
-    >
-        <h1 class="text-xl text-center md:text-2xl lg:text-3xl font-bold">
-            Contacts
-        </h1>
-        <a
-            routerLink="/dashboard/contacts/details"
-            [queryParams]="{ mode : 'add'}"
-            class="btn btn-sm lg:btn-md"
-            >Add</a
+<ng-container *ngIf="list | async as data; else loading">
+    <article class="p-4">
+        <section
+            class="flex item justify-between items-center md:px-2 md:pb-4 px-1 pb-2"
         >
+            <h1 class="text-xl text-center md:text-2xl lg:text-3xl font-bold">
+                Contacts
+            </h1>
+            <a
+                routerLink="/dashboard/contacts/details"
+                [queryParams]="{ mode : 'add'}"
+                class="btn btn-sm lg:btn-md"
+                >Add</a
+            >
+        </section>
+        <hr />
+        <section
+            class="grid grid-cols-1 gap-4 md:gap-8 md:grid-cols-2 xl:grid-cols-3 mt-2"
+        >
+            <ng-container *ngFor="let item of data">
+                <contact-card
+                    @fadeIn
+                    [item]="item"
+                    (onCheck)="onCheck($event)"
+                ></contact-card>
+            </ng-container>
+        </section>
+    </article>
+</ng-container>
+<ng-template #loading>
+    <section class="h-[78vh] flex justify-center items-center">
+        <progress class="progress progress-primary w-56"></progress>
     </section>
-    <hr />
-    <section
-        class="grid grid-cols-1 gap-4 md:gap-8 md:grid-cols-2 xl:grid-cols-3 mt-2"
-    >
-        <ng-container *ngFor="let item of list | async">
-            <contact-card
-                @fadeIn
-                [item]="item"
-                (onCheck)="onCheck($event)"
-            ></contact-card>
-        </ng-container>
-    </section>
-</article>
+</ng-template>
