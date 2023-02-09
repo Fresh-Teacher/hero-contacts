@@ -34,7 +34,9 @@
                         </a></span
                     >
                     <div class="flex justify-end" *ngIf="isTablet">
-                        <theme-toggler></theme-toggler>
+                        <theme-toggler
+                            panelClass="text-base-100"
+                        ></theme-toggler>
                     </div>
                 </h1>
             </ng-container>
@@ -48,7 +50,10 @@
             <section class="flex-none hidden lg:block">
                 <ul class="menu menu-horizontal">
                     <!-- Navbar menu content here -->
-                    <theme-toggler *ngIf="!isTablet"></theme-toggler>
+                    <theme-toggler
+                        panelClass="text-base-100"
+                        *ngIf="!isTablet"
+                    ></theme-toggler>
                     <li>
                         <a
                             class="btn btn-ghost mx-2 text-base-100 rounded-none"

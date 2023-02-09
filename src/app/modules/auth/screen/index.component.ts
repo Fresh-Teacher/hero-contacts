@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastService } from 'src/app/services/toaster.service';
+import { COMMONENUM, Theme } from 'src/app/types/common-types';
 import { fadeInOut } from '../../shared/animations/shared.animations';
 import { AuthService } from '../services/auth.service';
 
@@ -37,6 +38,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     });
 
     isLoading = false;
+    isMobile: boolean;
     constructor(
         private _router: Router,
         private _common: CommonService,
@@ -45,6 +47,19 @@ export class IndexComponent implements OnInit, OnDestroy {
         private _toastr: ToastService
     ) {
         this._common.setTitle('Auth');
+        const theme = localStorage.getItem(COMMONENUM.THEME) as Theme;
+        if (theme) {
+            this._common.theme.next(theme);
+        }
+        this.subscriptons.push(
+            this._common
+                .getBrowserWidth()
+                .subscribe((width) =>
+                    width <= 768
+                        ? (this.isMobile = true)
+                        : (this.isMobile = false)
+                )
+        );
         setTimeout(() => {
             this.isShown = true;
         }, 2000);
