@@ -38,8 +38,12 @@ export class ContactFormPage implements OnInit {
         private _route: ActivatedRoute,
         private _conatctSer: ContactService
     ) {
-        this._common.setTitle('Add');
         this.mode = this._route.snapshot.queryParams[ContactsQueryParams.MODE];
+        if (this.mode === ContactsQueryParams.ADD) {
+            this._common.setTitle('Add');
+        } else {
+            this._common.setTitle('Edit');
+        }
         this.addContactForm = this._fb.group({
             name: this._fb.control('', [Validators.required]),
             contacts: this._fb.array([

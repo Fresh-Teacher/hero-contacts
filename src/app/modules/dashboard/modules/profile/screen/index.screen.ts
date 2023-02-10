@@ -17,6 +17,7 @@ import {
 } from '@angular/forms';
 import { Location } from '@angular/common';
 import { noSpace } from '../../contacts/validators/validators';
+import { CommonService } from 'src/app/services/common.service';
 @Component({
     selector: 'profile',
     templateUrl: './index.screen.html',
@@ -37,8 +38,10 @@ export class IndexProfileScreen implements OnDestroy {
         private _fireStorage: AngularFireStorage,
         private _toastr: ToastService,
         private _fb: FormBuilder,
-        private _location: Location
+        private _location: Location,
+        private _common: CommonService
     ) {
+        this._common.setTitle('Profile');
         this.suscriptions.push(
             this._auth.user.subscribe((user) => {
                 this.user = user;

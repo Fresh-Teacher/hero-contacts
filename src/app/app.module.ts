@@ -1,13 +1,11 @@
 import { environment } from './../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
-import { LogInterceptor } from './modules/shared/interceptors/request.interceptor';
 import { NetworkManagerService } from './services/network-manager.service';
 import { SharedModule } from './modules/shared/shared.module';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
@@ -49,7 +47,6 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
         NetworkManagerService,
         AuthService,
         GoogleAuthProvider,
-        { provide: HTTP_INTERCEPTORS, useClass: LogInterceptor, multi: true },
         { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
     ],
     bootstrap: [AppComponent],

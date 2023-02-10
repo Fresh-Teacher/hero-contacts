@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonService } from './services/common.service';
 
 @Component({
     selector: 'app-root',
@@ -8,7 +7,5 @@ import { CommonService } from './services/common.service';
 })
 export class AppComponent {
     isTablet = false;
-    constructor(private _common: CommonService) {
-        this._common.setTheme('light');
-    }
+    constructor() {}
 }
