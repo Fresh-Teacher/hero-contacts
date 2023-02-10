@@ -1,180 +1,209 @@
-<main class="h-screen relative w-full bg-base-100">
-    <div class="h-screen w-full z-10 bg-base-100 hidden md:block">
-        <div
-            class="absolute h-screen w-full z-20 md:bg-primary"
-            style="clip-path: polygon(100% 0, 0 0, 0 68%)"
-        ></div>
-    </div>
-    <h1 class="text-zinc-600 text-3xl p-6 md:hidden">Welcome To My Contacts</h1>
-    <article
-        class="w-[90%] mx-auto md:absolute md:z-30 md:top-0 md:right-40 mt-14 max-w-md"
+<div class="hero min-h-screen relative bg-base-200">
+    <div
+        class="theme absolute top-0 w-full z-20 right-0 h-20 flex p-4 text-black justify-end"
     >
-        <message
-            *ngIf="isShown"
-            (onClick)="closeBanner($event)"
-            message="We don't store any personal information of user i.e password etc."
-        ></message>
-        <form
-            [formGroup]="authForm"
-            action="authentication"
-            class="mt-4 bg-base-300 p-4 md:p-8 rounded-md shadow-sm"
-            (ngSubmit)="submitForm()"
-        >
-            <section class="" @fade *ngIf="isSignUp">
-                <label for="name" class="block mb-2 w-full font-bold"
-                    >Full Name :</label
-                >
-                <input
-                    type="text"
-                    formControlName="name"
-                    placeholder="Enter full name"
-                    [ngClass]="{
-                        'input-error': name.errors && name.touched
-                    }"
-                    class="input input-bordered input-sm md:input-md w-full"
-                />
-                <label
-                    @fade
-                    for="error"
-                    *ngIf="name.errors && name.touched"
-                    class="label"
-                >
-                    <span class="label-text-alt text-error">
-                        <ng-container *ngIf="name.errors['required']">
-                            Full name is required</ng-container
-                        >
-                        <ng-container *ngIf="name.errors['maxlength']">
-                            Full name is Invalid</ng-container
-                        >
-                    </span>
-                </label>
-            </section>
-            <section class="my-2">
-                <label for="email" class="block my-2 w-full font-bold"
-                    >Email :</label
-                >
-                <input
-                    type="text"
-                    formControlName="email"
-                    placeholder="Enter your email address"
-                    [ngClass]="{
-                        'input-error': email.errors && email.touched
-                    }"
-                    class="input input-bordered input-sm md:input-md w-full"
-                />
-                <label
-                    @fade
-                    for="error"
-                    *ngIf="email.errors && email.touched"
-                    class="label"
-                >
-                    <span class="label-text-alt text-error">
-                        <ng-container *ngIf="email.errors['required']">
-                            Email is required</ng-container
-                        >
-                        <ng-container *ngIf="email.errors['email']">
-                            Email is Invalid</ng-container
-                        >
-                    </span>
-                </label>
-            </section>
-            <section class="my-2">
-                <label for="password" class="block my-2 w-full font-bold"
-                    >Password :</label
-                >
-                <input
-                    type="password"
-                    [ngClass]="{
-                        'input-error': password.errors && password.touched
-                    }"
-                    formControlName="password"
-                    placeholder="Enter your password"
-                    class="input input-bordered input-sm md:input-md input-error w-full"
-                />
-                <label
-                    @fade
-                    for="error"
-                    *ngIf="password.errors && password.touched"
-                    class="label"
-                >
-                    <span class="label-text-alt text-error">
-                        <ng-container *ngIf="password.errors['required']"
-                            >Password is required</ng-container
-                        >
-                        <ng-container *ngIf="password.errors['minlength']"
-                            >Password Must be more then 6
-                            characters</ng-container
-                        >
-                    </span>
-                </label>
-            </section>
-            <button
-                [disabled]="!authForm.valid"
-                [ngClass]="{ loading: isLoading }"
-                type="submit"
-                networkDisabled
-                class="btn btn-sm md:btn-md btn-block mt-2"
-            >
-                {{ isSignUp ? 'Signup' : 'Login' }}
-            </button>
-            <section
-                class="grid grid-rows-2 md:grid-rows-none grid-cols-none mt-4 md:grid-cols-2 gap-2"
-            >
-                <button
-                    type="button"
-                    networkDisabled
-                    [disabled]="isLoading"
-                    (click)="signInWithGoogle()"
-                    data-tip="Login With Google"
-                    class="btn btn-sm md:btn-md tooltip tooltip-top flex justify-center items-center"
-                >
-                    <div class="md:h-6 md:w-6 h-4 w-4">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                            viewBox="0 0 48 48"
-                        >
-                            <defs>
-                                <path
-                                    id="a"
-                                    d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"
-                                />
-                            </defs>
-                            <clipPath id="b">
-                                <use xlink:href="#a" overflow="visible" />
-                            </clipPath>
-                            <path
-                                clip-path="url(#b)"
-                                fill="#FBBC05"
-                                d="M0 37V11l17 13z"
+        <theme-toggler panelClass="text-base-content"></theme-toggler>
+    </div>
+    <div class="hero-content gap-8 flex-col lg:flex-row-reverse">
+        <div class="text-center lg:text-left">
+            <h1 class="text-5xl font-bold">My Contacts</h1>
+            <p class="py-6">
+                <strong>My Contacts</strong> is a fast and efficient web app for
+                storing your personal contacts
+            </p>
+        </div>
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div class="card-body">
+                <article class="w-full max-w-md">
+                    <message
+                        *ngIf="isShown"
+                        (onClick)="closeBanner($event)"
+                        message="We don't store any personal information of user i.e password etc."
+                    ></message>
+                    <form
+                        [formGroup]="authForm"
+                        action="authentication"
+                        class=""
+                        (ngSubmit)="submitForm()"
+                    >
+                        <section class="" @fade *ngIf="isSignUp">
+                            <label
+                                for="name"
+                                class="block mb-2 w-full font-bold"
+                                >Full Name :</label
+                            >
+                            <input
+                                type="text"
+                                formControlName="name"
+                                placeholder="Enter full name"
+                                [ngClass]="{
+                                    'input-error': name.errors && name.touched
+                                }"
+                                class="input input-bordered input-sm md:input-md w-full"
                             />
-                            <path
-                                clip-path="url(#b)"
-                                fill="#EA4335"
-                                d="M0 11l17 13 7-6.1L48 14V0H0z"
+                            <label
+                                @fade
+                                for="error"
+                                *ngIf="name.errors && name.touched"
+                                class="label"
+                            >
+                                <span class="label-text-alt text-error">
+                                    <ng-container
+                                        *ngIf="name.errors['required']"
+                                    >
+                                        Full name is required</ng-container
+                                    >
+                                    <ng-container
+                                        *ngIf="name.errors['maxlength']"
+                                    >
+                                        Full name is Invalid</ng-container
+                                    >
+                                </span>
+                            </label>
+                        </section>
+                        <section class="my-2">
+                            <label
+                                for="email"
+                                class="block my-2 w-full font-bold"
+                                >Email :</label
+                            >
+                            <input
+                                type="text"
+                                formControlName="email"
+                                placeholder="Enter your email address"
+                                [ngClass]="{
+                                    'input-error': email.errors && email.touched
+                                }"
+                                class="input input-bordered input-sm md:input-md w-full"
                             />
-                            <path
-                                clip-path="url(#b)"
-                                fill="#34A853"
-                                d="M0 37l30-23 7.9 1L48 0v48H0z"
+                            <label
+                                @fade
+                                for="error"
+                                *ngIf="email.errors && email.touched"
+                                class="label"
+                            >
+                                <span class="label-text-alt text-error">
+                                    <ng-container
+                                        *ngIf="email.errors['required']"
+                                    >
+                                        Email is required</ng-container
+                                    >
+                                    <ng-container *ngIf="email.errors['email']">
+                                        Email is Invalid</ng-container
+                                    >
+                                </span>
+                            </label>
+                        </section>
+                        <section class="my-2">
+                            <label
+                                for="password"
+                                class="block my-2 w-full font-bold"
+                                >Password :</label
+                            >
+                            <input
+                                type="password"
+                                [ngClass]="{
+                                    'input-error':
+                                        password.errors && password.touched
+                                }"
+                                formControlName="password"
+                                placeholder="Enter your password"
+                                class="input input-bordered input-sm md:input-md input-error w-full"
                             />
-                            <path
-                                clip-path="url(#b)"
-                                fill="#4285F4"
-                                d="M48 48L17 24l-4-3 35-10z"
-                            />
-                        </svg>
-                    </div>
-                    <span class="mx-2 md:hidden block">Login With Google</span>
-                </button>
-                <button
-                    (click)="toggleMode()"
-                    type="button"
-                    class="btn btn-sm md:btn-md"
-                >
-                    Switch to {{ isSignUp ? 'Login' : 'Signup' }}
-                </button>
-            </section>
-        </form>
-    </article>
-</main>
+                            <label
+                                @fade
+                                for="error"
+                                *ngIf="password.errors && password.touched"
+                                class="label"
+                            >
+                                <span class="label-text-alt text-error">
+                                    <ng-container
+                                        *ngIf="password.errors['required']"
+                                        >Password is required</ng-container
+                                    >
+                                    <ng-container
+                                        *ngIf="password.errors['minlength']"
+                                        >Password Must be more then 6
+                                        characters</ng-container
+                                    >
+                                </span>
+                            </label>
+                        </section>
+                        <button
+                            [disabled]="!authForm.valid"
+                            [ngClass]="{ loading: isLoading }"
+                            type="submit"
+                            networkDisabled
+                            class="btn btn-sm md:btn-md btn-block mt-2"
+                        >
+                            {{ isSignUp ? 'Signup' : 'Login' }}
+                        </button>
+                        <section
+                            class="grid grid-rows-2 md:grid-rows-none grid-cols-none mt-4 md:grid-cols-2 gap-2"
+                        >
+                            <button
+                                type="button"
+                                networkDisabled
+                                [disabled]="isLoading"
+                                (click)="signInWithGoogle()"
+                                data-tip="Login With Google"
+                                class="btn btn-sm md:btn-md tooltip tooltip-top flex justify-center items-center"
+                            >
+                                <div class="md:h-6 md:w-6 h-4 w-4">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        viewBox="0 0 48 48"
+                                    >
+                                        <defs>
+                                            <path
+                                                id="a"
+                                                d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"
+                                            />
+                                        </defs>
+                                        <clipPath id="b">
+                                            <use
+                                                xlink:href="#a"
+                                                overflow="visible"
+                                            />
+                                        </clipPath>
+                                        <path
+                                            clip-path="url(#b)"
+                                            fill="#FBBC05"
+                                            d="M0 37V11l17 13z"
+                                        />
+                                        <path
+                                            clip-path="url(#b)"
+                                            fill="#EA4335"
+                                            d="M0 11l17 13 7-6.1L48 14V0H0z"
+                                        />
+                                        <path
+                                            clip-path="url(#b)"
+                                            fill="#34A853"
+                                            d="M0 37l30-23 7.9 1L48 0v48H0z"
+                                        />
+                                        <path
+                                            clip-path="url(#b)"
+                                            fill="#4285F4"
+                                            d="M48 48L17 24l-4-3 35-10z"
+                                        />
+                                    </svg>
+                                </div>
+                                <span class="mx-2 md:hidden block"
+                                    >Login With Google</span
+                                >
+                            </button>
+                            <button
+                                (click)="toggleMode()"
+                                type="button"
+                                class="btn btn-sm md:btn-md"
+                            >
+                                Switch to {{ isSignUp ? 'Login' : 'Signup' }}
+                            </button>
+                        </section>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

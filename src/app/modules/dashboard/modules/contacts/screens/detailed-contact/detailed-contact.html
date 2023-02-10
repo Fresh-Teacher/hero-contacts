@@ -27,7 +27,7 @@
             </div>
 
             <p
-                class="xl:text-5xl lg:text-4xl text-gray-700 md:text-4xl sm:text-3xl font-extrabold"
+                class="xl:text-5xl lg:text-4xl md:text-4xl sm:text-3xl font-extrabold"
             >
                 {{ contact.name | uppercase}}
             </p>
@@ -38,7 +38,7 @@
                 class="w-full"
                 [ngClass]="'tooltip tooltip-bottom'"
             >
-                <div class="carousel w-full bg-base-300 rounded-md">
+                <div class="carousel w-full rounded-md">
                     <ng-container
                         *ngFor="let item of contact.contacts; let i = index"
                     >
@@ -48,12 +48,12 @@
                         >
                             <article class="w-full p-1 md:p-3">
                                 <p
-                                    class="text-gray-700 xl:text-3xl lg:text-2xl md:text-xl sm:text-base font-semibold"
+                                    class="xl:text-3xl lg:text-2xl md:text-xl sm:text-base font-semibold"
                                 >
                                     Email : {{item.email}}
                                 </p>
                                 <p
-                                    class="text-gray-700 xl:text-3xl lg:text-2xl md:text-xl sm:text-base font-semibold"
+                                    class="xl:text-3xl lg:text-2xl md:text-xl sm:text-base font-semibold"
                                 >
                                     Phone : {{item.phone}}
                                 </p>
@@ -63,9 +63,9 @@
                 </div>
             </div>
         </section>
-        <section id="description" class="bg-base-200 text-gray-700">
+        <section id="description" class="">
             <p
-                class="text-gray-700 rounded-md xl:text-3xl lg:text-2xl md:text-xl sm:text-base font-normal"
+                class="rounded-md xl:text-3xl lg:text-2xl md:text-xl sm:text-base font-normal"
             >
                 {{contact.description }}
             </p>

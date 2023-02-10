@@ -16,3 +16,9 @@ export const requiredFileType = (types: string[]) => {
         return null;
     };
 };
+
+export const noSpace = (control: FormControl): { whitespace: boolean } => {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
+};

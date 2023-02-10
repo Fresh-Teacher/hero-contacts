@@ -39,20 +39,22 @@
                     'text-error': item.status === 'inactive',
                     'text-success': item.status === 'active'
                 }"
-                class="inline-block"
+                class="inline-block ml-2"
             >
                 {{ item.status | capitalize }}</span
             >
         </p>
         <div @fade *ngIf="!isMultiSelected" class="card-actions justify-end">
             <button
-                class="btn btn-sm lg:btn-md btn-primary"
+                class="btn btn-sm lg:btn-md btn-primary tooltip tooltip-bottom"
+                data-tip="Edit this contact!"
                 (click)="edit(item.id, $event)"
             >
                 Edit
             </button>
             <button
-                class="btn btn-sm lg:btn-md btn-error"
+                class="btn btn-sm lg:btn-md btn-error tooltip tooltip-bottom"
+                data-tip="Delete this contact!"
                 (click)="delete(item.id, $event)"
             >
                 Delete

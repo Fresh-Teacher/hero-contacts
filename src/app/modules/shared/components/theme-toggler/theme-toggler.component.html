@@ -1,10 +1,12 @@
 <section
-    class="flex justify-between text-base-100 items-center px-2 md:px-4 py-2"
+    [ngClass]="panelClass"
+    class="flex justify-between items-center px-2 md:px-4 py-2"
 >
     <label class="swap swap-rotate">
         <!-- this hidden checkbox controls the state -->
         <input
             type="checkbox"
+            [checked]="theme === commonEnum.DARCULA"
             (click)="toggleTheme($event)"
             class="tooltip tooltip-bottom"
             data-tip="Theme"
