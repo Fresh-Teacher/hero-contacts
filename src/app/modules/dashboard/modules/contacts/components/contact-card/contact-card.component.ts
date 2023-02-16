@@ -38,8 +38,8 @@ export class ContactCardComponent implements OnDestroy {
         private _auth: AuthService
     ) {
         this.subsriptions.push(
-            this._layout.numberOfCardSelected.subscribe((count) => {
-                if (count) {
+            this._layout.selectedCards.subscribe((cards) => {
+                if (cards.length >= 1) {
                     this.isMultiSelected = true;
                 } else {
                     this.isMultiSelected = false;

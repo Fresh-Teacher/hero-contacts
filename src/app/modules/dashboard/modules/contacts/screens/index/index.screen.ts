@@ -32,16 +32,14 @@ export class ContactsIndexScreen implements OnInit, OnDestroy {
         this.list = this._contactService.getContacts();
 
         this.subscriptions.push(
-            this._layout.numberOfCardSelected.subscribe((count) => {
-                if (count) {
+            this._layout.selectedCards.subscribe((cards) => {
+                this.cards = cards;
+                if (cards.length >= 1) {
                     this.isMultiSelected = true;
                 } else {
                     this.isMultiSelected = false;
                 }
-            }),
-            this._layout.selectedCards.subscribe(
-                (cards) => (this.cards = cards)
-            )
+            })
         );
     }
 
@@ -58,7 +56,6 @@ export class ContactsIndexScreen implements OnInit, OnDestroy {
         }
         console.log(this.cards);
         this._layout.selectedCards.next(this.cards);
-        this._layout.numberOfCardSelected.next(this.cards.length);
     }
 
     ngOnDestroy(): void {

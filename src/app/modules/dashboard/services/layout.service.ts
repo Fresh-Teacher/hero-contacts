@@ -9,5 +9,4 @@ export class LayoutService {
     constructor() {}
 
     selectedCards = new BehaviorSubject<CardStatus[]>([]);
-    numberOfCardSelected = new BehaviorSubject<number>(0);
 }
