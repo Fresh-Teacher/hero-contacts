@@ -16,6 +16,7 @@ export enum ContactsQueryParams {
     user = 'user',
 }
 
+export type CardStatus = { id: string; checked: boolean };
 export type Contactstatus = 'active' | 'inactive';
 
 export interface ContactsMetaData {
