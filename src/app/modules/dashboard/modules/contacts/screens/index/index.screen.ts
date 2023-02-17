@@ -26,7 +26,7 @@ export class ContactsIndexScreen implements OnInit, OnDestroy {
         private _layout: LayoutService,
         private _contactService: ContactService
     ) {
-        this._common.setTitle('Contacts - Dashboard');
+        this._common.setTitle('Contacts');
     }
     async ngOnInit(): Promise<void> {
         this.list = this._contactService.getContacts();
@@ -43,6 +43,15 @@ export class ContactsIndexScreen implements OnInit, OnDestroy {
         );
     }
 
+    async deleteSelected(): Promise<void> {
+        const idsToDelete = this.cards.map((e) => e.id);
+        await this._contactService.deleteMultiple(idsToDelete);
+        this._layout.selectedCards.next(
+            this._layout.selectedCards.value.filter(
+                (e) => !idsToDelete.includes(e.id)
+            )
+        );
+    }
     async onCheck({ id, checked }: CardStatus): Promise<void> {
         if (checked) {
             if (!this.cards.some((card) => card.id === id)) {

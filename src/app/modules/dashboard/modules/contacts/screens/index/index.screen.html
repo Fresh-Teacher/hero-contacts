@@ -6,12 +6,23 @@
             <h1 class="text-xl text-center md:text-2xl lg:text-3xl font-bold">
                 Contacts
             </h1>
-            <a
-                routerLink="/dashboard/contacts/details"
-                [queryParams]="{ mode : 'add'}"
-                class="btn btn-sm lg:btn-md"
-                >Add</a
-            >
+            <div>
+                <button
+                    *ngIf="cards.length"
+                    @fade
+                    (click)="deleteSelected()"
+                    class="btn mr-2 md:mr-4 btn-sm md:btn-md"
+                >
+                    Delete {{ cards.length }} Contacts
+                </button>
+                <a
+                    @fade
+                    routerLink="/dashboard/contacts/details"
+                    [queryParams]="{ mode : 'add'}"
+                    class="btn btn-sm lg:btn-md"
+                    >Add</a
+                >
+            </div>
         </section>
         <hr />
         <section
