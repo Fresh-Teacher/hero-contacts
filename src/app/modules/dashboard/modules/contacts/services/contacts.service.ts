@@ -51,15 +51,20 @@ export class ContactService {
         this._toastr.info('Successfully Updated !!');
     }
     async deleteMultiple(ids: string[]): Promise<void> {
-        this.list = this._afc.collection(`${this.user.uid}`);
-        const batch = this._afc.firestore.batch();
-        ids.forEach((id) => {
-            const docRef = this.list.doc(id).ref;
-            batch.delete(docRef);
-        });
+        try {
+            this.list = this._afc.collection(`${this.user.uid}`);
+            const batch = this._afc.firestore.batch();
+            ids.forEach((id) => {
+                const docRef = this.list.doc(id).ref;
+                batch.delete(docRef);
+            });
 
-        await batch.commit();
-        this._toastr.warning(`Succfully deleted ${ids.length} contacts!!`);
+            await batch.commit();
+            this._toastr.warning(`Succfully deleted ${ids.length} contacts!!`);
+        } catch (err) {
+            console.error(err);
+            this._toastr.error('Unable to delete selected contacts');
+        }
     }
 
     async deleteContact(id: string): Promise<void> {

@@ -17,12 +17,11 @@ import {
     catchError,
     from,
     map,
-    retry,
     tap,
     throwError,
+    Observable,
 } from 'rxjs';
 import { ToastService } from 'src/app/services/toaster.service';
-import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -73,7 +72,6 @@ export class AuthService {
         return from(signInWithPopup(this._auth, this._provider)).pipe(
             map(({ user }) => user),
             tap((data) => this.user.next(data)),
-            retry(2),
             catchError((err: FirebaseError) => throwError(err))
         );
     }

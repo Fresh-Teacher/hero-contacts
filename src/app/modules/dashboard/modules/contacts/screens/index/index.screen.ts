@@ -44,13 +44,17 @@ export class ContactsIndexScreen implements OnInit, OnDestroy {
     }
 
     async deleteSelected(): Promise<void> {
-        const idsToDelete = this.cards.map((e) => e.id);
-        await this._contactService.deleteMultiple(idsToDelete);
-        this._layout.selectedCards.next(
-            this._layout.selectedCards.value.filter(
-                (e) => !idsToDelete.includes(e.id)
-            )
-        );
+        try {
+            const idsToDelete = this.cards.map((e) => e.id);
+            await this._contactService.deleteMultiple(idsToDelete);
+            this._layout.selectedCards.next(
+                this._layout.selectedCards.value.filter(
+                    (e) => !idsToDelete.includes(e.id)
+                )
+            );
+        } catch (err) {
+            console.error(err);
+        }
     }
     async onCheck({ id, checked }: CardStatus): Promise<void> {
         if (checked) {
