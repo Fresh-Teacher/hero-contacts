@@ -49,7 +49,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         this._common.setTitle('Auth');
         const theme = localStorage.getItem(COMMONENUM.THEME) as Theme;
         if (theme) {
-            this._common.theme.next(theme);
+            this._common.setTheme(theme);
         }
         this.subscriptons.push(
             this._common

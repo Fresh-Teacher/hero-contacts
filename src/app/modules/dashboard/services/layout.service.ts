@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { CardStatus } from '../modules/contacts/model/contacts.model';
 
 @Injectable({
     providedIn: 'root',
@@ -7,5 +8,5 @@ import { BehaviorSubject } from 'rxjs';
 export class LayoutService {
     constructor() {}
 
-    numberOfCardSelected = new BehaviorSubject<number>(0);
+    selectedCards = new BehaviorSubject<CardStatus[]>([]);
 }

@@ -1,4 +1,4 @@
-import { ContactsQueryParams } from './../../model/contacts.model';
+import { CardStatus, ContactsQueryParams } from './../../model/contacts.model';
 import {
     Component,
     EventEmitter,
@@ -25,11 +25,11 @@ import { ContactService } from '../../services/contacts.service';
 export class ContactCardComponent implements OnDestroy {
     user: User;
     @Input() item: Contact;
-    @Output() onCheck = new EventEmitter<string[]>();
+    @Output() onCheck = new EventEmitter<CardStatus>();
     subsriptions: Subscription[] = [];
 
     isMultiSelected = false;
-    selectedIds: string[] = [];
+    selectedIds: string[];
     constructor(
         private _layout: LayoutService,
         private _contactSer: ContactService,
@@ -38,37 +38,24 @@ export class ContactCardComponent implements OnDestroy {
         private _auth: AuthService
     ) {
         this.subsriptions.push(
-            this._layout.numberOfCardSelected.subscribe((count) => {
-                if (count) {
+            this._layout.selectedCards.subscribe((cards) => {
+                if (cards.length >= 1) {
                     this.isMultiSelected = true;
                 } else {
                     this.isMultiSelected = false;
                 }
             }),
+
             this._auth.user.subscribe((user) => (this.user = user))
         );
     }
 
     onMultiSelect(event: TStoFix): void {
         event.stopPropagation();
-        const id = event.target.value;
-        if (event.target.checked) {
-            if (!this.selectedIds.includes(id)) {
-                this.selectedIds.push(id);
-            }
-            this._layout.numberOfCardSelected.next(
-                this._layout.numberOfCardSelected.value + 1
-            );
-        } else {
-            const index = this.selectedIds.indexOf(id);
-            if (index !== -1) {
-                this.selectedIds.splice(index, 1);
-            }
-            this._layout.numberOfCardSelected.next(
-                this._layout.numberOfCardSelected.value - 1
-            );
-        }
-        this.onCheck.emit([...this.selectedIds]);
+        this.onCheck.emit({
+            id: event.target.value,
+            checked: event.target.checked,
+        } as CardStatus);
     }
     detailed(id: string, event: Event) {
         event.stopPropagation();
