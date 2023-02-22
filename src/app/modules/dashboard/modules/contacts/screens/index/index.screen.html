@@ -7,14 +7,14 @@
                 Contacts
             </h1>
             <div>
-                <button
-                    *ngIf="cards.length"
-                    @fade
-                    (click)="deleteSelected()"
-                    class="btn mr-2 md:mr-4 btn-sm md:btn-md"
-                >
-                    Delete {{ cards.length }} Contacts
-                </button>
+                <ng-container *ngIf="cards.length">
+                    <button
+                        (click)="deleteSelected()"
+                        class="btn mr-2 md:mr-4 btn-sm md:btn-md"
+                    >
+                        Delete {{ cards.length }} Contacts
+                    </button>
+                </ng-container>
                 <a
                     @fade
                     routerLink="/dashboard/contacts/details"
@@ -25,17 +25,33 @@
             </div>
         </section>
         <hr />
-        <section
-            class="grid grid-cols-1 gap-4 md:gap-8 md:grid-cols-2 xl:grid-cols-3 mt-2"
-        >
-            <ng-container *ngFor="let item of data">
+        <ng-container *ngIf="!data.length; else loadedContacts">
+            <section
+                class="flex w-full h-[78vh] justify-center items-center flex-col"
+            >
+                <h1 class="text-2xl md:text-4xl font-semibold">
+                    No Contacts Present!
+                </h1>
+                <a
+                    routerLink="/dashboard/contacts/details"
+                    [queryParams]="{ mode : 'add'}"
+                    class="btn btn-primary mt-4 btn-sm md:btn-md"
+                    >Add New Contact</a
+                >
+            </section>
+        </ng-container>
+        <ng-template #loadedContacts>
+            <section
+                class="grid grid-cols-1 gap-4 md:gap-8 md:grid-cols-2 xl:grid-cols-3 mt-2"
+            >
                 <contact-card
                     @fadeIn
+                    *ngFor="let item of data"
                     [item]="item"
                     (onCheck)="onCheck($event)"
                 ></contact-card>
-            </ng-container>
-        </section>
+            </section>
+        </ng-template>
     </article>
 </ng-container>
 <ng-template #loading>
