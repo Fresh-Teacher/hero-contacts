@@ -104,11 +104,7 @@ export class ContactFormPage implements OnInit {
                     this.addContactForm.value
                 );
             } else {
-                const data = {
-                    id: Math.random(),
-                    photoUrl: randomAvatarUrlGenerator(),
-                    ...this.addContactForm.value,
-                };
+                const data = { ...this.addContactForm.value } as Contact;
                 this._conatctSer.addContact(data);
             }
         } catch (err) {

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CommonService } from 'src/app/services/common.service';
-import { COMMONENUM, Theme, TStoFix } from 'src/app/types/common-types';
+import { Theme, TStoFix } from 'src/app/types/common-types';
 
 enum THEMES {
     DARCULA = 'dracula',
@@ -23,9 +23,9 @@ export class ThemeToggler implements OnDestroy {
     }
     toggleTheme(event: TStoFix) {
         if (!event.target.checked) {
-            this._common.setTheme('light');
+            this._common.setTheme(THEMES.LIGHT);
         } else {
-            this._common.setTheme('dracula');
+            this._common.setTheme(THEMES.DARCULA);
         }
     }
     ngOnDestroy(): void {
