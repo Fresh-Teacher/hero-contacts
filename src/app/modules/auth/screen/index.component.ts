@@ -85,7 +85,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.subscriptons.push(
             this._auth.signInWithGoogle().subscribe({
                 next: (value) => {
-                    this._router.navigate(['dashboard']);
+                    this._router.navigate(['dashboard/contacts']);
                     this._toastr.success(`Signed in as ${value.displayName}`);
                     this.isLoading = false;
                 },
@@ -112,7 +112,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.subscriptons.push(
             this._auth.signIn(email, password).subscribe({
                 next: (value) => {
-                    this._router.navigate(['dashboard']);
+                    this._router.navigate(['dashboard/contacts']);
                     this._toastr.success(`Loggedin Successfully!`);
                     this.authForm.reset();
                     this.isLoading = false;

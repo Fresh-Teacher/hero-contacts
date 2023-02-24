@@ -3,10 +3,12 @@ import { Contact } from './../../model/contacts.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
+import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 
 @Component({
     selector: 'detailed-view',
     templateUrl: './detailed-contact.html',
+    animations: [fadeInOut],
 })
 export class DetailedContactScreen implements OnInit {
     contact: Contact;

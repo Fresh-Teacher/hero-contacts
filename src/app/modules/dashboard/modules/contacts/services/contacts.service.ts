@@ -69,6 +69,6 @@ export class ContactService {
 
     async deleteContact(id: string): Promise<void> {
         await deleteDoc(doc(this._fire, `${this.user.uid}`, `${id}`));
-        this._toastr.error('Successfully Deleted !!');
+        this._toastr.success('Successfully Deleted !!');
     }
 }

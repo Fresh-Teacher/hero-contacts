@@ -9,7 +9,8 @@ import {
 import { AuthService } from './modules/auth/services/auth.service';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['auth']);
-const redirectLoggedInToDashboard = () => redirectLoggedInTo(['dashboard']);
+const redirectLoggedInToDashboard = () =>
+    redirectLoggedInTo(['dashboard/contacts']);
 
 const routes: Routes = [
     {
