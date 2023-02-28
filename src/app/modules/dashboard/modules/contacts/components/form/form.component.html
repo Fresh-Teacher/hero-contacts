@@ -163,7 +163,11 @@
                 *ngIf="contacts.controls.length === 3"
                 >We cannot add more then 3 contacts for now</label
             >
-            <section class="mt-2 md:mt-4 flex justify-end items-center">
+            <section
+                @fade
+                *ngIf="contacts.controls.length <= 2"
+                class="mt-2 md:mt-4 flex justify-end items-center"
+            >
                 <button
                     class="btn btn-sm md:btn-md tooltip tooltip-left"
                     [disabled]="contacts.controls.length >= 3"
