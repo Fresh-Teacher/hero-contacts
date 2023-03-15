@@ -12,6 +12,7 @@ import { ToastService } from 'src/app/services/toaster.service';
 import { COMMONENUM, Theme } from 'src/app/types/common-types';
 import { fadeInOut } from '../../shared/animations/shared.animations';
 import { AuthService } from '../services/auth.service';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
     selector: 'index',
@@ -44,7 +45,8 @@ export class IndexComponent implements OnInit, OnDestroy {
         private _common: CommonService,
         private _fb: FormBuilder,
         private _auth: AuthService,
-        private _toastr: ToastService
+        private _toastr: ToastService,
+        private _seoService: SeoService
     ) {
         this._common.setTitle('Auth');
         const theme = localStorage.getItem(COMMONENUM.THEME) as Theme;
@@ -60,6 +62,7 @@ export class IndexComponent implements OnInit, OnDestroy {
                         : (this.isMobile = false)
                 )
         );
+        this.setSeoData();
         setTimeout(() => {
             this.isShown = true;
         }, 2000);
@@ -67,6 +70,33 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     closeBanner(b: boolean) {
         this.isShown = false;
+    }
+
+    setSeoData(): void {
+        const metaTags = [
+            {
+                name: 'title',
+                content: `My Contcats App - Authentication Page`,
+            },
+            {
+                name: 'description',
+                content:
+                    'My Contacts is a fast and efficient web app for storing your personal contacts',
+            },
+            {
+                name: 'author',
+                content: 'Abbas Shaikh',
+            },
+            {
+                name: 'keywords',
+                content: 'angular, app, web-app, pwa',
+            },
+            {
+                name: 'type',
+                content: 'website',
+            },
+        ];
+        this._seoService.setTags(metaTags);
     }
 
     get email(): AbstractControl {
