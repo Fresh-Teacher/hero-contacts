@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { LayoutService } from 'src/app/modules/dashboard/services/layout.service';
 import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
-import { TStoFix } from 'src/app/types/common-types';
 import { Contact } from '../../model/contacts.model';
 import { ContactService } from '../../services/contacts.service';
 
@@ -50,11 +49,11 @@ export class ContactCardComponent implements OnDestroy {
         );
     }
 
-    onMultiSelect(event: TStoFix): void {
+    onMultiSelect(event: Event): void {
         event.stopPropagation();
         this.onCheck.emit({
-            id: event.target.value,
-            checked: event.target.checked,
+            id: (event.target as HTMLInputElement).value,
+            checked: (event.target as HTMLInputElement).checked,
         } as CardStatus);
     }
     detailed(id: string, event: Event) {
