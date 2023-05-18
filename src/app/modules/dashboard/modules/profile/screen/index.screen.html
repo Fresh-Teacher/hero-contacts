@@ -17,18 +17,23 @@
             <div
                 class="w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
             >
-                <img [src]="user.photoURL" class="" alt="user-img" />
+                <img
+                    [src]="user.photoURL"
+                    class=""
+                    alt="user-img"
+                    (click)="selectFile()"
+                />
+                <input
+                    type="file"
+                    id="avatar"
+                    networkDisabled
+                    (change)="uploadprofile($event)"
+                    accept="image/jpg"
+                    class="hidden"
+                />
             </div>
         </div>
-        <section class="mb-4 mt-8 p-0 bg-base-300">
-            <input
-                type="file"
-                networkDisabled
-                (change)="uploadprofile($event)"
-                accept="image/jpg"
-                class="file-input w-full file-input-sm md:file-input-md"
-            />
-        </section>
+        <section class="mb-4 mt-8 p-0 bg-base-300"></section>
         <form
             action="user-update"
             [formGroup]="updateForm"

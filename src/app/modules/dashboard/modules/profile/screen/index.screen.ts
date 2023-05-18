@@ -1,5 +1,5 @@
 import { fadeInOut } from './../../../../shared/animations/shared.animations';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { updateProfile, User } from '@angular/fire/auth';
 import {
@@ -15,7 +15,7 @@ import {
     FormControl,
     FormGroup,
 } from '@angular/forms';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { noSpace } from '../../contacts/validators/validators';
 import { CommonService } from 'src/app/services/common.service';
 @Component({
@@ -39,7 +39,8 @@ export class IndexProfileScreen implements OnDestroy {
         private _toastr: ToastService,
         private _fb: FormBuilder,
         private _location: Location,
-        private _common: CommonService
+        private _common: CommonService,
+        @Inject(DOCUMENT) private _document: Document
     ) {
         this._common.setTitle('Profile');
         this.suscriptions.push(
@@ -50,6 +51,10 @@ export class IndexProfileScreen implements OnDestroy {
         this.updateForm = this._fb.group({
             username: new FormControl(this.user.displayName, [noSpace]),
         });
+    }
+    selectFile(): void {
+        const fileInput = this._document.getElementById('avatar');
+        fileInput.click();
     }
     async uploadprofile(event: TStoFix) {
         try {
