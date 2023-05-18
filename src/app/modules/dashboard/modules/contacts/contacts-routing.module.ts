@@ -5,6 +5,7 @@ import { ContactsIndexScreen } from './screens/index/index.screen';
 import { DetailedContactScreen } from './screens/detailed-contact/detailed-contact';
 import { ContactFormPage } from './components/form/form.component';
 import { ContactFormResolver } from './resolver/contact-form.resolver';
+import { CanActivateEditForm } from './guard/edit-form.guard';
 
 const routes: Routes = [
     {
@@ -18,6 +19,7 @@ const routes: Routes = [
         resolve: {
             formData: ContactFormResolver,
         },
+        canActivate: [CanActivateEditForm],
     },
     {
         path: 'view',

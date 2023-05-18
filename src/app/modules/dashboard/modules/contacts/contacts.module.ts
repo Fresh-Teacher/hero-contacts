@@ -7,6 +7,7 @@ import { ContactsRoutingModule } from './contacts-routing.module';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { ContactFormPage } from './components/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CanActivateEditForm } from './guard/edit-form.guard';
 
 @NgModule({
     declarations: [
@@ -22,5 +23,6 @@ import { ReactiveFormsModule } from '@angular/forms';
         ReactiveFormsModule,
     ],
     exports: [],
+    providers: [CanActivateEditForm],
 })
 export class ContactsModule {}
