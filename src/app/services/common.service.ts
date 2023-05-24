@@ -1,27 +1,16 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, ɵɵinject } from '@angular/core';
-import { Observable, fromEvent, map, BehaviorSubject } from 'rxjs';
-import { COMMONENUM, Theme, TStoFix } from 'src/app/types/common-types';
-
-export function createTitle() {
-    return new CommonService(ɵɵinject(DOCUMENT));
-}
+import { Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { BehaviorSubject } from 'rxjs';
+import { COMMONENUM, Theme } from 'src/app/types/common-types';
 
 @Injectable({
     providedIn: 'root',
-    useFactory: createTitle,
-    deps: [],
 })
 export class CommonService {
     theme: BehaviorSubject<Theme> = new BehaviorSubject<Theme>('light');
-    constructor(@Inject(DOCUMENT) private _doc: TStoFix) {}
-    getBrowserWidth(): Observable<number> {
-        return fromEvent(window, 'resize').pipe(
-            map((val: TStoFix) => val['target']['innerWidth'])
-        );
-    }
+    constructor(private _title: Title) {}
     setTitle(newTitle: string) {
-        this._doc.title = `${newTitle} | My Contacts`;
+        this._title.setTitle(`${newTitle} | My Contacts`);
     }
     setTheme(theme: string): void {
         const HtmlTag = document.querySelector('html');

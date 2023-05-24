@@ -1,10 +1,11 @@
 import { User } from '@angular/fire/auth';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { COMMONENUM, Theme } from 'src/app/types/common-types';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
     selector: 'dashboard-screeen',
@@ -19,7 +20,8 @@ export class DashboardScreen implements OnDestroy {
     constructor(
         private _common: CommonService,
         private _auth: AuthService,
-        private _router: Router
+        private _router: Router,
+        @Inject(DOCUMENT) private _document: Document
     ) {
         this._common.setTitle('Dashboard');
         this.subscriptions.push(
@@ -41,6 +43,10 @@ export class DashboardScreen implements OnDestroy {
     }
     async logout(): Promise<void> {
         await this._auth.signOut();
+    }
+    closeSidebar(): void {
+        const sidebarToggler = this._document.getElementById('overlay');
+        sidebarToggler.click();
     }
 
     ngOnDestroy(): void {

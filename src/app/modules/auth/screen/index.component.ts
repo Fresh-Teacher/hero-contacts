@@ -39,7 +39,6 @@ export class IndexComponent implements OnInit, OnDestroy {
     });
 
     isLoading = false;
-    isMobile: boolean;
     constructor(
         private _router: Router,
         private _common: CommonService,
@@ -53,16 +52,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         if (theme) {
             this._common.setTheme(theme);
         }
-        this.subscriptons.push(
-            this._common
-                .getBrowserWidth()
-                .subscribe((width) =>
-                    width <= 768
-                        ? (this.isMobile = true)
-                        : (this.isMobile = false)
-                )
-        );
-        this.setSeoData();
+        this._seoService.setSeoData();
         setTimeout(() => {
             this.isShown = true;
         }, 2000);
@@ -70,33 +60,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     closeBanner(b: boolean) {
         this.isShown = false;
-    }
-
-    setSeoData(): void {
-        const metaTags = [
-            {
-                name: 'title',
-                content: `My Contcats App - Authentication Page`,
-            },
-            {
-                name: 'description',
-                content:
-                    'My Contacts is a fast and efficient web app for storing your personal contacts',
-            },
-            {
-                name: 'author',
-                content: 'Abbas Shaikh',
-            },
-            {
-                name: 'keywords',
-                content: 'angular, app, web-app, pwa',
-            },
-            {
-                name: 'type',
-                content: 'website',
-            },
-        ];
-        this._seoService.setTags(metaTags);
     }
 
     get email(): AbstractControl {

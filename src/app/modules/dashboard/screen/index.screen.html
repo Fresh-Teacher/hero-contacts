@@ -28,6 +28,8 @@
                 <div class="avatar mx-4 hidden lg:block">
                     <div class="w-12 cursor-pointer rounded-full">
                         <img
+                            alt="profile-picture"
+                            loading="lazy"
                             [src]="loggedInUser.photoURL"
                             referrerpolicy="no-referrer"
                         />
@@ -56,10 +58,15 @@
             </ng-container>
         </div>
         <div class="drawer-side">
-            <label for="my-drawer-2" class="drawer-overlay"></label>
+            <label
+                for="my-drawer-2"
+                class="drawer-overlay"
+                id="overlay"
+            ></label>
             <ul class="menu p-4 md:w-80 w-[80%] bg-base-100 text-base-content">
                 <li>
                     <a
+                        (click)="closeSidebar()"
                         class="rounded-none"
                         routerLink="/dashboard/contacts"
                         routerLinkActive="border-l-primary border-l-2 bg-base-200"
@@ -70,6 +77,7 @@
 
                 <li>
                     <a
+                        (click)="closeSidebar()"
                         routerLink="/dashboard/profile"
                         [routerLinkActiveOptions]="{ exact: true }"
                         routerLinkActive="border-l-primary border-l-2 bg-base-200"
