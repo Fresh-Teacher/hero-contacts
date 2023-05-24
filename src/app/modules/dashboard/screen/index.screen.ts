@@ -6,6 +6,7 @@ import { COMMONENUM, Theme } from 'src/app/types/common-types';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
     selector: 'dashboard-screeen',
@@ -21,9 +22,11 @@ export class DashboardScreen implements OnDestroy {
         private _common: CommonService,
         private _auth: AuthService,
         private _router: Router,
-        @Inject(DOCUMENT) private _document: Document
+        @Inject(DOCUMENT) private _document: Document,
+        private _secService: SeoService
     ) {
         this._common.setTitle('Dashboard');
+        this._secService.setSeoData();
         this.subscriptions.push(
             this._auth.user.subscribe((user) => {
                 this.loggedInUser = user;
