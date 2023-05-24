@@ -11,7 +11,6 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
     templateUrl: './index.screen.html',
 })
 export class DashboardScreen implements OnDestroy {
-    isTablet: boolean = true;
     subscriptions: Subscription[] = [];
     loggedInUser: User;
     profilePic: string;
@@ -27,13 +26,7 @@ export class DashboardScreen implements OnDestroy {
             this._auth.user.subscribe((user) => {
                 this.loggedInUser = user;
             }),
-            this._common.getBrowserWidth().subscribe((width) => {
-                if (width <= 1024) {
-                    this.isTablet = true;
-                } else {
-                    this.isTablet = false;
-                }
-            }),
+
             this._router.events.subscribe((event) => {
                 if (event instanceof NavigationStart)
                     this.contentLoaded = false;

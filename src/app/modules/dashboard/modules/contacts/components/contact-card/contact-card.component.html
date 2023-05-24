@@ -12,9 +12,7 @@
     </figure>
     <div class="card-body p-2 md:p-4">
         <section class="flex justify-between">
-            <h2
-                class="card-title text-sm md:text-base lg:text-xl font-extrabold"
-            >
+            <h2 class="card-title text-sm md:text-base font-extrabold">
                 {{ item.name }}
             </h2>
 
@@ -26,16 +24,16 @@
                 class="checkbox checkbox-xs md:checkbox-md tooltip tooltip-left"
             />
         </section>
-        <h2 class="block w-full text-sm md:text-base lg:text-xl">
+        <h2 class="block w-full text-sm md:text-base">
             <span class="font-semibold">Email :</span>
             {{ item.contacts[0].email }}
         </h2>
-        <h2 class="block w-full text-sm md:text-base lg:text-xl">
+        <h2 class="block w-full text-sm md:text-base">
             <span class="inline-block font-semibold">Phone :</span>
             {{ item.contacts[0].phone }}
         </h2>
 
-        <p class="text-sm md:text-base lg:text-xl font-semibold">
+        <p class="text-sm md:text-base font-semibold">
             <span class="inline-block">Status : </span>
             <span
                 [ngClass]="{
@@ -49,14 +47,14 @@
         </p>
         <div @fade *ngIf="!isMultiSelected" class="card-actions justify-end">
             <button
-                class="btn btn-sm lg:btn-md btn-primary tooltip tooltip-bottom"
+                class="btn btn-sm md:btn-md btn-primary tooltip tooltip-bottom"
                 data-tip="Edit this contact!"
                 (click)="edit(item.id, $event)"
             >
                 Edit
             </button>
             <button
-                class="btn btn-sm lg:btn-md btn-error tooltip tooltip-bottom"
+                class="btn btn-sm md:btn-md btn-error tooltip tooltip-bottom"
                 data-tip="Delete this contact!"
                 (click)="delete(item.id, $event)"
             >

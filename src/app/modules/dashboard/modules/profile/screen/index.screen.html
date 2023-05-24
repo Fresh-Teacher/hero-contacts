@@ -7,30 +7,33 @@
         >
             <
         </p>
-        <h1 class="text-xl text-center md:text-2xl lg:text-3xl font-bold">
-            Profile
-        </h1>
+        <h1 class="text-base md:text-xl font-bold">Profile</h1>
     </section>
     <hr />
     <section class="w-[90%] max-w-4xl mx-auto flex flex-col items-center mt-4">
-        <div class="avatar">
-            <div
-                class="w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
-            >
-                <img
-                    [src]="user.photoURL"
-                    class=""
-                    alt="user-img"
-                    (click)="selectFile()"
-                />
-                <input
-                    type="file"
-                    id="avatar"
-                    networkDisabled
-                    (change)="uploadprofile($event)"
-                    accept="image/jpg"
-                    class="hidden"
-                />
+        <div
+            class="tooltip m-2 tooltip-bottom"
+            data-tip="Choose Profile Photo!"
+        >
+            <div class="avatar">
+                <div
+                    class="w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+                >
+                    <img
+                        [src]="user.photoURL"
+                        class=""
+                        alt="user-img"
+                        (click)="selectFile()"
+                    />
+                    <input
+                        type="file"
+                        id="avatar"
+                        networkDisabled
+                        (change)="uploadprofile($event)"
+                        accept="image/jpg"
+                        class="hidden"
+                    />
+                </div>
             </div>
         </div>
         <section class="mb-4 mt-8 p-0 bg-base-300"></section>
