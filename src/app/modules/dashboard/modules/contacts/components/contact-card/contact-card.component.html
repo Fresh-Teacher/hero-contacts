@@ -2,7 +2,7 @@
     class="main-container"
     (click)="!isMultiSelected ? detailed(item.id, $event) : null"
 >
-    <figure data-tip="Avatar" class="tooltip tooltip-bottom w-32 sm:w-auto">
+    <figure data-tip="Avatar" class="tooltip tooltip-bottom w-32">
         <img
             class="object-cover brightness-75"
             [src]="item.photoUrl"
@@ -12,7 +12,7 @@
     </figure>
     <div class="card-body p-2 md:p-4">
         <section class="flex justify-between">
-            <h2 class="card-title text-sm md:text-base font-extrabold">
+            <h2 class="card-title md:mt-2 text-sm md:text-base font-extrabold">
                 {{ item.name }}
             </h2>
 
@@ -33,7 +33,7 @@
             {{ item.contacts[0].phone }}
         </h2>
 
-        <p class="text-sm md:text-base font-semibold">
+        <p class="text-sm md:text-base mb-2 font-semibold">
             <span class="inline-block">Status : </span>
             <span
                 [ngClass]="{
@@ -45,10 +45,11 @@
                 {{ item.status | capitalize }}</span
             >
         </p>
-        <div @fade *ngIf="!isMultiSelected" class="card-actions justify-end">
+        <div class="card-actions justify-end">
             <button
                 class="btn btn-sm md:btn-md btn-primary tooltip tooltip-bottom"
                 data-tip="Edit this contact!"
+                [ngClass]="{ 'btn-disabled': isMultiSelected }"
                 (click)="edit(item.id, $event)"
             >
                 Edit
@@ -56,6 +57,7 @@
             <button
                 class="btn btn-sm md:btn-md btn-error tooltip tooltip-bottom"
                 data-tip="Delete this contact!"
+                [ngClass]="{ 'btn-disabled': isMultiSelected }"
                 (click)="delete(item.id, $event)"
             >
                 Delete
