@@ -225,6 +225,14 @@
                     <ng-container *ngIf="description.errors['required']"
                         >Description is required</ng-container
                     >
+                    <ng-container
+                        *ngIf="
+                            description.errors['minDescription'] &&
+                            !description.errors['required']
+                        "
+                    >
+                        Description Should be minimum of 50 words
+                    </ng-container>
                 </p>
             </section>
         </section>

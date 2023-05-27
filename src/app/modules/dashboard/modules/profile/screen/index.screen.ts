@@ -59,22 +59,28 @@ export class IndexProfileScreen implements OnDestroy {
     async uploadprofile(event: TStoFix) {
         try {
             const file: Blob = event.target.files[0];
-            const filepath = `${this.user.uid}.png`;
-            const fileRef = this._fireStorage.ref(filepath);
-            this.task = this._fireStorage.upload(filepath, file, {
-                cacheControl: 'true',
-            });
+            if (file.type.includes('image/')) {
+                const filepath = `${this.user.uid}.png`;
+                const fileRef = this._fireStorage.ref(filepath);
+                this.task = this._fireStorage.upload(filepath, file, {
+                    cacheControl: 'true',
+                });
 
-            this.task
-                .percentageChanges()
-                .subscribe((count) => (this.percentage = count));
+                this.task
+                    .percentageChanges()
+                    .subscribe((count) => (this.percentage = count));
 
-            const url = (await fileRef.getDownloadURL().toPromise()) as string;
-            await updateProfile(this._auth.user.value, { photoURL: url });
-            this._toastr.success('Profile Updated Successfully!');
+                const url = (await fileRef
+                    .getDownloadURL()
+                    .toPromise()) as string;
+                await updateProfile(this._auth.user.value, { photoURL: url });
+                this._toastr.success('Profile Updated Successfully!');
+            } else {
+                throw new Error('Please select proper image file');
+            }
         } catch (err) {
             console.error(err);
-            this._toastr.error('Unable to update profile!');
+            this._toastr.error(err);
         }
     }
 

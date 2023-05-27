@@ -33,7 +33,7 @@ export class ContactService {
     }
 
     getContacts(): Observable<Contact[]> {
-        this.list = this._afc.collection(`${this.user.uid}`, (ref) => {
+        this.list = this._afc.collection<Contact>(`${this.user.uid}`, (ref) => {
             return ref.orderBy('name', 'asc');
         });
         return this.list.valueChanges();

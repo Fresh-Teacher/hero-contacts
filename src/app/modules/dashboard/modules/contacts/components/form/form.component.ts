@@ -18,6 +18,7 @@ import { fadeInOut } from 'src/app/modules/shared/animations/shared.animations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastService } from 'src/app/services/toaster.service';
 import { randomAvatarUrlGenerator } from 'src/app/modules/auth/utils/auth.util';
+import { descriptionValidator } from '../../validators/validators';
 
 @Component({
     selector: 'add-contact',
@@ -64,7 +65,10 @@ export class ContactFormPage implements OnInit {
                 }),
             ]),
             status: this._fb.control('active'),
-            description: this._fb.control('', [Validators.required]),
+            description: this._fb.control('', [
+                Validators.required,
+                descriptionValidator,
+            ]),
             id: Math.random(),
             photoUrl: randomAvatarUrlGenerator(),
         });

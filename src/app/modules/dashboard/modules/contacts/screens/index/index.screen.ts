@@ -9,7 +9,7 @@ import {
 
 import { CardStatus, Contact } from '../../model/contacts.model';
 import { ContactService } from '../../services/contacts.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'contacts-screen',
@@ -17,7 +17,8 @@ import { Observable, Subscription } from 'rxjs';
     animations: [fadeInOut, fade, staggedIn],
 })
 export class ContactsIndexScreen implements OnInit, OnDestroy {
-    list: Observable<Contact[]>;
+    list: Contact[];
+    subs: Subscription;
     isMultiSelected!: boolean;
     subscriptions: Subscription[] = [];
     cards: CardStatus[];
@@ -29,7 +30,12 @@ export class ContactsIndexScreen implements OnInit, OnDestroy {
         this._common.setTitle('Contacts');
     }
     async ngOnInit(): Promise<void> {
-        this.list = this._contactService.getContacts();
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
+        this.subs = this._contactService
+            .getContacts()
+            .subscribe((data) => (this.list = data));
 
         this.subscriptions.push(
             this._layout.selectedCards.subscribe((cards) => {
